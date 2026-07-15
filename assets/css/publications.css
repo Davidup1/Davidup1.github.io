@@ -18,9 +18,9 @@
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
-:root { --global-bg-color: #FAF9F5; --global-code-bg-color: rgba(181, 9, 172, 0.05); --global-text-color: #3D3929; --global-text-color-light: #8A857A; --global-theme-color: #A9512D; --global-hover-color: #8F4224; --global-footer-bg-color: #1c1c1c; --global-footer-text-color: #e8e8e8; --global-footer-link-color: #ffffff; --global-distill-app-color: #828282; }
+:root { --global-bg-color: #FAF9F5; --global-code-bg-color: rgba(181, 9, 172, 0.05); --global-text-color: #3D3929; --global-text-color-light: #8A857A; --global-theme-color: #3A5A48; --global-hover-color: #35543F; --global-footer-bg-color: #1c1c1c; --global-footer-text-color: #e8e8e8; --global-footer-link-color: #ffffff; --global-distill-app-color: #828282; }
 
-@media (prefers-color-scheme: dark) { :root { --global-theme-color: #D97757; --global-bg-color: #262624; --global-text-color: #E5E4DF; }}
+@media (prefers-color-scheme: dark) { :root { --global-theme-color: #93BD9E; --global-bg-color: #262624; --global-text-color: #E5E4DF; }}
 
 blockquote { background: var(--global-bg-color); border-left: 2px solid var(--global-theme-color); margin: 1.5em 10px; padding: 0.5em 10px; font-size: 1.2rem; }
 
