@@ -24,16 +24,16 @@ assets/files/             # CV 等 PDF 文件
 
 ## 部署到 GitHub Pages
 
-1. 在 GitHub 新建仓库,命名为 `<你的用户名>.github.io`(公开仓库)。
+1. 在 GitHub(账号 Davidup1)新建公开仓库,命名为 `Davidup1.github.io`。
 2. 推送本目录:
 
    ```bash
-   git remote add origin git@github.com:<你的用户名>/<你的用户名>.github.io.git
+   git remote add origin git@github.com:Davidup1/Davidup1.github.io.git
    git push -u origin main
    ```
 
 3. 仓库 Settings → Pages → Source 选择 `Deploy from a branch`,分支选 `main`(根目录)。
-   GitHub 会自动用 Jekyll 构建,约一分钟后访问 `https://<你的用户名>.github.io`。
+   GitHub 会自动用 Jekyll 构建,约一分钟后访问 `https://davidup1.github.io`。
 
 ## 本地预览
 

@@ -14,7 +14,7 @@
 main:
 
   - title: "Example Paper Title One: A Placeholder for Your Latest Work"
-    authors: <strong>Your Name</strong>, Coauthor One, Coauthor Two
+    authors: <strong>Yujie Li</strong>, Coauthor One, Coauthor Two
     conference_short: NeurIPS
     conference: Advances in Neural Information Processing Systems <strong>(NeurIPS)</strong>, 2026.
     pdf: https://arxiv.org/
@@ -24,7 +24,7 @@ main:
     notes: Spotlight
 
   - title: "Example Paper Title Two: Another Placeholder Entry"
-    authors: Coauthor One, <strong>Your Name</strong>, Coauthor Two
+    authors: Coauthor One, <strong>Yujie Li</strong>, Coauthor Two
     conference_short: CVPR
     conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2025.
     pdf: https://arxiv.org/

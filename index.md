@@ -4,24 +4,20 @@ layout: homepage
 
 ## About Me
 
-<!-- TODO: 替换为你的个人简介 -->
-I am a Ph.D. student at **Your University**, advised by [Prof. Advisor Name](https://www.example.edu/). Before that, I received my B.S. degree from **Your Undergraduate University** in 20XX.
+I am an M.S. student at the [State Key Laboratory of Networking and Switching Technology](https://sklnst.bupt.edu.cn/), Beijing University of Posts and Telecommunications (BUPT), advised by [Prof. Wenjia Xu](http://wenjia.ruantang.top/). Before that, I received my B.E. degree from the School of Information and Communication Engineering, BUPT in 2025.
 
-My research focuses on ... I am broadly interested in building ... **I am actively looking for collaborations — feel free to reach out!**
+My research focuses on intelligent interpretation of remote sensing imagery and multimodal large language models.
 
 ## Research Interests
 
-<!-- TODO: 替换为你的研究方向 -->
-- **Topic A:** sub-direction 1, sub-direction 2, sub-direction 3
-- **Topic B:** sub-direction 1, sub-direction 2
+- **Remote Sensing:** multi-temporal interpretation, change captioning, multimodal learning
+- **Multimodal Large Language Models:** long-term memory, visual question answering
 
 ## News
 
-<!-- TODO: 按时间倒序列出你的最新动态 -->
-- **[Jun. 2026]** One paper is accepted to *Conference A 2026*. 🎉
-- **[Mar. 2026]** I received the *XXX Fellowship / Scholarship*.
-- **[Jan. 2026]** One paper is accepted to *Conference B 2026*.
-- **[Sep. 2025]** I started my Ph.D. at Your University.
+<!-- TODO: 后续补充更多动态,按时间倒序 -->
+- **[Sep. 2025]** I started my M.S. at the State Key Laboratory of Networking and Switching Technology, BUPT.
+- **[Jun. 2025]** I received my B.E. degree from BUPT. 🎓
 
 {% include_relative _includes/publications.md %}
 
