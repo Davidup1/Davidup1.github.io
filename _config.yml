@@ -1,0 +1,43 @@
+# ===================== Basic Information =====================
+# TODO: 替换为你的真实信息
+title: Your Name
+position: Ph.D. Student
+affiliation: Your University
+affiliation_link: https://www.example.edu/
+email: yourname (at) example.edu
+
+# ===================== SEO =====================
+keywords: Your Name, academic homepage, research
+description: Academic homepage of Your Name.
+# canonical: https://yourname.github.io/
+
+# ===================== Links =====================
+# 不需要的项可以直接删掉对应行
+google_scholar: https://scholar.google.com/
+cv_link: assets/files/curriculum_vitae.pdf
+github_link: https://github.com/
+# linkedin: https://www.linkedin.com/
+# twitter: https://twitter.com/
+
+# ===================== Images =====================
+# avatar: 个人照片; favicon: 网站图标(深浅色两套)
+avatar: ./assets/img/avatar.png
+favicon: ./assets/img/favicon.png
+favicon_dark: ./assets/img/favicon-dark.png
+
+# Footnote: 页脚的主题署名,可设为 false 关闭
+enable_footnote: true
+
+# 跟随系统自动切换深色模式
+auto_dark_mode: true
+
+# 字体: "Serif" 或 "Sans Serif"
+font: "Serif"
+
+# 构建时排除的文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - vendor/

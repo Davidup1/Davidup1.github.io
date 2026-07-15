@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO: 替换为论文标题与描述 -->
+  <title>Example Paper Title One</title>
+  <meta name="description" content="Project page for Example Paper Title One (NeurIPS 2026).">
+  <link rel="icon" href="../../assets/img/favicon.png" type="image/png">
+  <style>
+    :root {
+      --text: #1f2328;
+      --text-soft: #57606a;
+      --bg: #ffffff;
+      --bg-soft: #f6f8fa;
+      --accent: #3564b1;
+      --border: #d8dee4;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #e6edf3;
+        --text-soft: #9ea7b3;
+        --bg: #0d1117;
+        --bg-soft: #161b22;
+        --accent: #6ea8fe;
+        --border: #30363d;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Georgia", "Times New Roman", "Noto Serif SC", serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    header { padding: 64px 0 40px; text-align: center; }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .venue { color: var(--accent); font-size: 1.05rem; margin-bottom: 24px; font-style: italic; }
+    .authors { font-size: 1.08rem; margin-bottom: 6px; }
+    .authors a { color: var(--accent); text-decoration: none; }
+    .authors a:hover { text-decoration: underline; }
+    .authors sup { font-size: 0.72em; }
+    .affiliations { color: var(--text-soft); font-size: 0.95rem; margin-bottom: 28px; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-family: -apple-system, "Segoe UI", "Helvetica Neue", sans-serif;
+      transition: opacity .15s;
+    }
+    .links a:hover { opacity: 0.8; }
+    section { padding: 28px 0; }
+    h2 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    p { margin-bottom: 14px; }
+    .teaser { text-align: center; }
+    .teaser img, figure img { max-width: 100%; border-radius: 8px; }
+    figcaption, .caption {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .abstract p { text-align: justify; }
+    .video-wrap {
+      position: relative; width: 100%; padding-top: 56.25%;
+      border-radius: 8px; overflow: hidden; background: var(--bg-soft);
+    }
+    .video-wrap iframe, .video-wrap video {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+    .bibtex pre {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    hr { border: 0; border-top: 1px solid var(--border); margin: 8px 0; }
+    footer {
+      padding: 36px 0 48px;
+      color: var(--text-soft);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <!-- TODO: 论文标题 -->
+    <h1>Example Paper Title One:<br>A Placeholder for Your Latest Work</h1>
+    <!-- TODO: 会议名称 -->
+    <div class="venue">NeurIPS 2026 (Spotlight)</div>
+
+    <!-- TODO: 作者与单位 -->
+    <div class="authors">
+      <a href="../../">Your Name</a><sup>1</sup>,
+      <a href="#">Coauthor One</a><sup>1</sup>,
+      <a href="#">Coauthor Two</a><sup>2</sup>
+    </div>
+    <div class="affiliations">
+      <sup>1</sup>Your University &nbsp;&nbsp; <sup>2</sup>Another Institute
+    </div>
+
+    <!-- TODO: 替换链接;不需要的按钮删掉 -->
+    <div class="links">
+      <a href="https://arxiv.org/">📄 Paper</a>
+      <a href="https://arxiv.org/">📝 arXiv</a>
+      <a href="https://github.com/">💻 Code</a>
+      <a href="#video">🎬 Video</a>
+    </div>
+  </header>
+
+  <section class="container teaser">
+    <!-- TODO: 替换题图 -->
+    <figure>
+      <img src="../../assets/img/teaser_example.png" alt="Teaser figure">
+      <figcaption>Figure 1: One-sentence summary of what this figure shows.</figcaption>
+    </figure>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container abstract">
+    <h2>Abstract</h2>
+    <!-- TODO: 替换摘要 -->
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. This is a placeholder
+      abstract. Replace it with the abstract of your paper. It should briefly describe
+      the problem, your key idea, and the main results, in about 150–250 words.
+    </p>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container" id="video">
+    <h2>Video</h2>
+    <!-- TODO: 替换为你的视频。YouTube 用 iframe;本地 mp4 用 <video controls src="..."> -->
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Presentation video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container">
+    <h2>Method</h2>
+    <!-- TODO: 方法概述与框架图 -->
+    <figure>
+      <img src="../../assets/img/teaser_example_2.png" alt="Method overview">
+      <figcaption>Figure 2: Overview of the proposed framework.</figcaption>
+    </figure>
+    <p>
+      Briefly describe your method here: the pipeline, the key components, and what
+      makes it different from prior work.
+    </p>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container bibtex">
+    <h2>BibTeX</h2>
+    <!-- TODO: 替换 BibTeX -->
+    <pre>@inproceedings{yourname2026example,
+  title     = {Example Paper Title One: A Placeholder for Your Latest Work},
+  author    = {Your Name and Coauthor One and Coauthor Two},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
+}</pre>
+  </section>
+
+  <footer class="container">
+    <a href="../../">&larr; Back to homepage</a><br>
+    Website template inspired by <a href="https://nerfies.github.io/" rel="noopener">Nerfies</a>.
+  </footer>
+
+</body>
+</html>

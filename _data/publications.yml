@@ -1,0 +1,32 @@
+# TODO: 替换为你的论文列表(按时间倒序)。
+# 字段说明:
+#   title            论文标题
+#   authors          作者列表(自己的名字用 <strong> 加粗)
+#   conference_short 会议/期刊缩写(显示在题图角标上)
+#   conference       完整的会议/期刊名称与年份
+#   pdf              PDF 或 arXiv 链接
+#   code             代码仓库链接(可选)
+#   page             论文主页链接,指向本站 ./papers/<论文名>/ 子页面(可选)
+#   bibtex           BibTeX 链接(可选)
+#   image            题图(teaser),放在 ./assets/img/pubs/ 下
+#   notes            高亮备注,如 Oral / Spotlight / Best Paper(可选)
+
+main:
+
+  - title: "Example Paper Title One: A Placeholder for Your Latest Work"
+    authors: <strong>Your Name</strong>, Coauthor One, Coauthor Two
+    conference_short: NeurIPS
+    conference: Advances in Neural Information Processing Systems <strong>(NeurIPS)</strong>, 2026.
+    pdf: https://arxiv.org/
+    code: https://github.com/
+    page: ./papers/example-paper/
+    image: ./assets/img/teaser_example.png
+    notes: Spotlight
+
+  - title: "Example Paper Title Two: Another Placeholder Entry"
+    authors: Coauthor One, <strong>Your Name</strong>, Coauthor Two
+    conference_short: CVPR
+    conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2025.
+    pdf: https://arxiv.org/
+    code: https://github.com/
+    image: ./assets/img/teaser_example_2.png
