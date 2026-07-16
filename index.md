@@ -15,9 +15,12 @@ My research focuses on intelligent interpretation of remote sensing imagery and 
 
 ## News
 
-<!-- TODO: 后续补充更多动态,按时间倒序 -->
+- **[Apr. 2026]** Our paper <em>Graph-RHO</em> on flexible job-shop scheduling is accepted to IJCNN 2026. 🎉
+- **[Sep. 2025]** Our paper <em>BTCChat</em> on bi-temporal change captioning is accepted to ICASSP 2026. 🎉
 - **[Sep. 2025]** I started my M.S. at the State Key Laboratory of Networking and Switching Technology, BUPT.
+- **[Jul. 2025]** Our paper on malicious URL detection is published in <em>Computer Networks</em>. 🎉
 - **[Jun. 2025]** I received my B.E. degree from BUPT. 🎓
+- **[Dec. 2024]** We release <em>UniRS</em>, a vision-language model unifying multi-temporal remote sensing tasks, on arXiv.
 
 {% include_relative _includes/publications.md %}
 

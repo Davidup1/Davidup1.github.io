@@ -19,6 +19,7 @@ assets/files/             # CV 等 PDF 文件
 ## 内容维护
 
 - **加一篇论文**:在 `_data/publications.yml` 顶部加一个条目,题图放到 `assets/img/`。
+- **引用量跟踪**:条目里填 `s2id`(`arXiv:<id>`、`DOI:<doi>` 或 Semantic Scholar paperId),页面加载时会自动从 Semantic Scholar API 拉取引用数并显示 "Cited by N" 角标(0 引用时自动隐藏)。
 - **给论文建主页**:复制 `papers/example-paper/` 为 `papers/<论文名>/`,改其中的 `index.html`,再在 `publications.yml` 对应条目里加 `page: ./papers/<论文名>/`。
 - **更新动态/获奖**:分别编辑 `index.md` 的 News 部分和 `_includes/awards.md`。
 
