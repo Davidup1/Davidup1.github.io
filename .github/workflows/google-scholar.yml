@@ -1,0 +1,32 @@
+name: Update Google Scholar citations
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # 每天 02:00 UTC(北京时间 10:00)
+  workflow_dispatch: {} # 允许在 Actions 页面手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch citation data from Google Scholar
+        env:
+          GOOGLE_SCHOLAR_ID: gAfFuhsAAAAJ
+        run: python scripts/fetch_gs_citations.py
+
+      - name: Publish gs_data.json to google-scholar-stats branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: google-scholar-stats
+          publish_dir: ./gs-output
+          force_orphan: true
