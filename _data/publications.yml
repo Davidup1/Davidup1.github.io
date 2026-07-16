@@ -35,7 +35,7 @@ main:
 
   - title: "Continuous Multi-Task Pre-Training for Malicious URL Detection and Webpage Classification"
     authors: <strong>Yujie Li</strong>, Yiwei Liu, Peiyue Li, Yifan Jia, Yanbin Wang
-    conference_short: COMNET
+    conference_short: CN
     conference: <strong>Computer Networks</strong> (CCF-B, IF 4.6), 2025.
     pdf: https://www.sciencedirect.com/science/article/abs/pii/S1389128625004803
     code: https://github.com/Davidup1/URLBERT

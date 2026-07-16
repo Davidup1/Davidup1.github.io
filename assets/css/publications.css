@@ -89,3 +89,14 @@ blockquote { background: var(--global-bg-color); border-left: 2px solid var(--gl
   border: 1px solid var(--global-theme-color);
   border-radius: 0.125rem;
 }
+
+.publications ol.bibliography li .author strong {
+  color: #3A5A48;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .publications ol.bibliography li .author strong {
+    color: #B7CEBF;
+  }
+}
