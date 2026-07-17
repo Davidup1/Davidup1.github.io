@@ -1,0 +1,44 @@
+{
+  "updated": "2026-07-17 16:48 UTC",
+  "scholar_id": "gAfFuhsAAAAJ",
+  "total_citations": 62,
+  "h_index": 5,
+  "papers": {
+    "graphrhocriticalpathawareheterogeneousgraphnetworkforlonghorizonflexiblejobshopscheduling": {
+      "title": "Graph-RHO: Critical-path-aware Heterogeneous Graph Network for Long-Horizon Flexible Job-Shop Scheduling",
+      "citations": 0
+    },
+    "fedurlbertclientsplitfederatedbertformaliciousurldetection": {
+      "title": "Fed-urlBERT: Client-Split Federated BERT for Malicious URL Detection",
+      "citations": 2
+    },
+    "btcchatadvancingremotesensingbitemporalchangecaptioningwithmultimodallargelanguagemodel": {
+      "title": "BTCChat: Advancing Remote Sensing Bi-temporal Change Captioning with Multimodal Large Language Model",
+      "citations": 6
+    },
+    "continuousmultitaskpretrainingformaliciousurldetectionandwebpageclassification": {
+      "title": "Continuous multi-task pre-training for malicious URL detection and webpage classification",
+      "citations": 17
+    },
+    "unirsunifyingmultitemporalremotesensingtasksthroughvisionlanguagemodels": {
+      "title": "UniRS: Unifying multi-temporal remote sensing tasks through vision language models",
+      "citations": 14
+    },
+    "strugglewithadversarialdefensetrydiffusion": {
+      "title": "Struggle with adversarial defense? try diffusion",
+      "citations": 1
+    },
+    "urlbertacontrastiveandadversarialpretrainedmodelforurlclassification": {
+      "title": "Urlbert: A contrastive and adversarial pre-trained model for url classification",
+      "citations": 13
+    },
+    "behavioralpropagationinfluencedbyfluctuatingpersonalityonsinglelayerlimitedcontactnetwork": {
+      "title": "Behavioral propagation influenced by fluctuating personality on single-layer limited-contact network",
+      "citations": 3
+    },
+    "fedurlbertclientsidelightweightfederatedtransformersforurlthreatanalysis": {
+      "title": "Fed-urlbert: Client-side lightweight federated transformers for url threat analysis",
+      "citations": 6
+    }
+  }
+}

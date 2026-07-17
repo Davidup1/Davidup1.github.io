@@ -19,7 +19,7 @@ assets/files/             # CV 等 PDF 文件
 ## 内容维护
 
 - **加一篇论文**:在 `_data/publications.yml` 顶部加一个条目,题图放到 `assets/img/`。
-- **引用量跟踪(Google Scholar)**:`.github/workflows/google-scholar.yml` 每天自动爬取 [Scholar 主页](https://scholar.google.com/citations?user=gAfFuhsAAAAJ)引用数,写入 `google-scholar-stats` 分支的 `gs_data.json`;页面加载时读取并按论文标题匹配,显示 "Cited by N" 角标(0 引用自动隐藏)。也可在 GitHub Actions 页面手动触发 "Update Google Scholar citations" 立即刷新。若 GS 数据不可用,自动降级为 Semantic Scholar(条目的 `s2id` 字段)。
+- **引用量跟踪(Google Scholar)**:`scripts/update_gs_stats.sh` 爬取 [Scholar 主页](https://scholar.google.com/citations?user=gAfFuhsAAAAJ)引用数并强推到 `google-scholar-stats` 分支的 `gs_data.json`;页面加载时读取并按论文标题匹配,显示 "Cited by N" 角标(0 引用自动隐藏)。由本地服务器 cron 每日运行(GitHub Actions 的数据中心 IP 被 Scholar 屏蔽,workflow 仅保留手动触发作备用)。若 GS 数据不可用,自动降级为 Semantic Scholar(条目的 `s2id` 字段)。
 - **给论文建主页**:复制 `papers/example-paper/` 为 `papers/<论文名>/`,改其中的 `index.html`,再在 `publications.yml` 对应条目里加 `page: ./papers/<论文名>/`。
 - **更新动态/获奖**:分别编辑 `index.md` 的 News 部分和 `_includes/awards.md`。
 

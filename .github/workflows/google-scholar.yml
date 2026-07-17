@@ -1,8 +1,9 @@
 name: Update Google Scholar citations
 
+# 注意:GitHub Actions 数据中心 IP 会被 Google Scholar 屏蔽,定时抓取已改由
+# 本地服务器 cron 运行 scripts/update_gs_stats.sh 完成。此 workflow 仅保留
+# 手动触发入口,作为备用(不保证成功)。
 on:
-  schedule:
-    - cron: "0 2 * * *" # 每天 02:00 UTC(北京时间 10:00)
   workflow_dispatch: {} # 允许在 Actions 页面手动触发
 
 permissions:
