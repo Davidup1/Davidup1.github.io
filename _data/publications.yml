@@ -15,6 +15,14 @@
 
 main:
 
+  - title: "GeoChrono: Benchmarking and Rethinking Long-Term Temporal Understanding in Remote Sensing"
+    authors: <strong>Yujie Li</strong>, Jiancheng Pan, Zhiwei Wei, Jiuniu Wang, Mugen Peng, Wenjia Xu
+    conference_short: MM
+    conference: ACM International Conference on Multimedia <strong>(ACM MM)</strong>, 2026.
+    page: ./papers/geochrono/
+    code: https://github.com/IntelliSensing/GeoChrono
+    image: ./assets/img/pubs/geochrono.png
+
   - title: "Graph-RHO: Critical-path-aware Heterogeneous Graph Network for Long-Horizon Flexible Job-Shop Scheduling"
     authors: <strong>Yujie Li</strong>, Jiuniu Wang, Mugen Peng, Guangzuo Li, Wenjia Xu
     conference_short: IJCNN

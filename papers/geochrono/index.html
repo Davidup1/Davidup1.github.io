@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoChrono: Benchmarking and Rethinking Long-Term Temporal Understanding in Remote Sensing</title>
+  <meta name="description" content="ChronoBench: a four-level cognitive benchmark for long-term temporal understanding in remote sensing; GeoChrono: an MLLM with per-location temporal trajectory modeling. ACM MM 2026.">
+  <link rel="icon" href="../../assets/img/favicon.png" type="image/png">
+  <style>
+    :root {
+      --text: #3D3929;
+      --text-soft: #6F6A5E;
+      --bg: #FAF9F5;
+      --bg-soft: #F0EEE6;
+      --accent: #4E7A5E;
+      --border: #E4DFD3;
+      --l0: #56749F; --l0-bg: #EAEEF4;
+      --l1: #B4702E; --l1-bg: #F8EEDF;
+      --l2: #4E7A5E; --l2-bg: #E9F0EA;
+      --l3: #7C6AA6; --l3-bg: #EFEBF5;
+      --gold: #8A6D1F;
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #E5E4DF;
+        --text-soft: #A8A499;
+        --bg: #262624;
+        --bg-soft: #30302E;
+        --accent: #93BD9E;
+        --border: #3E3D39;
+        --l0: #9FB4D6; --l0-bg: #2C3038;
+        --l1: #DCA96C; --l1-bg: #383129;
+        --l2: #93BD9E; --l2-bg: #2B332D;
+        --l3: #B3A3D6; --l3-bg: #322E3B;
+        --gold: #D3B75C;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, "Nimbus Roman", "Liberation Serif", "Songti SC", SimSun, serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .container.wide { max-width: 1080px; }
+    header { padding: 60px 0 36px; text-align: center; }
+    h1 {
+      font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      text-wrap: balance;
+    }
+    .venue { color: var(--accent); font-size: 1.08rem; margin-bottom: 22px; font-style: italic; }
+    .authors { font-size: 1.06rem; margin-bottom: 6px; }
+    .authors a { color: var(--accent); text-decoration: none; }
+    .authors a:hover { text-decoration: underline; }
+    .authors sup { font-size: 0.72em; }
+    .affiliations { color: var(--text-soft); font-size: 0.92rem; margin-bottom: 26px; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: -apple-system, "Segoe UI", "Helvetica Neue", sans-serif;
+      transition: opacity .15s;
+    }
+    .links a:hover { opacity: 0.8; }
+    section { padding: 30px 0; }
+    h2 { font-size: 1.45rem; font-weight: 600; margin-bottom: 16px; text-align: center; }
+    h3 { font-size: 1.12rem; font-weight: 600; margin: 22px 0 10px; }
+    p { margin-bottom: 14px; }
+    .teaser { text-align: center; padding-top: 12px; }
+    .teaser img, figure img { max-width: 100%; border-radius: 8px; }
+    figure { text-align: center; margin: 10px 0; }
+    figcaption, .caption {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .abstract p { text-align: justify; }
+    hr { border: 0; border-top: 1px solid var(--border); margin: 8px 0; }
+
+    /* TL;DR */
+    .tldr {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 6px 0 4px;
+    }
+    .tldr .tag {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.08em;
+      color: var(--accent); font-weight: 600;
+    }
+    .tldr p { margin: 6px 0 0; }
+
+    /* Four-level cards */
+    .levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 18px 0 6px;
+    }
+    .level {
+      border-radius: 10px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-top: 3px solid;
+    }
+    .level .lv {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    }
+    .level h4 { font-size: 1.02rem; margin: 2px 0 4px; font-weight: 600; }
+    .level .q { font-style: italic; color: var(--text-soft); font-size: 0.92rem; margin-bottom: 8px; }
+    .level .tasks {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.78rem; color: var(--text-soft);
+    }
+    .level.l0 { border-top-color: var(--l0); background: var(--l0-bg); } .level.l0 .lv { color: var(--l0); }
+    .level.l1 { border-top-color: var(--l1); background: var(--l1-bg); } .level.l1 .lv { color: var(--l1); }
+    .level.l2 { border-top-color: var(--l2); background: var(--l2-bg); } .level.l2 .lv { color: var(--l2); }
+    .level.l3 { border-top-color: var(--l3); background: var(--l3-bg); } .level.l3 .lv { color: var(--l3); }
+
+    /* Stat tiles */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .stat {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat .n {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-size: 1.5rem; font-weight: 650; color: var(--accent);
+      line-height: 1.2;
+    }
+    .stat .d { font-size: 0.86rem; color: var(--text-soft); margin-top: 4px; line-height: 1.35; }
+
+    /* Task browser tabs */
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin: 16px 0 0;
+      font-family: -apple-system, "Segoe UI", sans-serif;
+    }
+    .tabs button {
+      padding: 7px 16px;
+      font-size: 0.86rem;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-soft);
+    }
+    .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tabs button[aria-selected="true"].t0 { background: var(--l0-bg); color: var(--l0); border-color: var(--l0); font-weight: 600; }
+    .tabs button[aria-selected="true"].t1 { background: var(--l1-bg); color: var(--l1); border-color: var(--l1); font-weight: 600; }
+    .tabs button[aria-selected="true"].t2 { background: var(--l2-bg); color: var(--l2); border-color: var(--l2); font-weight: 600; }
+    .tabs button[aria-selected="true"].t3 { background: var(--l3-bg); color: var(--l3); border-color: var(--l3); font-weight: 600; }
+    .task-panel { display: none; margin-top: 16px; }
+    .task-panel.active { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .task {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.93rem;
+    }
+    .task-panel.p0 .task { border-left-color: var(--l0); }
+    .task-panel.p1 .task { border-left-color: var(--l1); }
+    .task-panel.p2 .task { border-left-color: var(--l2); }
+    .task-panel.p3 .task { border-left-color: var(--l3); }
+    .task b { font-size: 0.96rem; }
+    .task .abbr {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-size: 0.72rem; color: var(--text-soft);
+    }
+    .task .qa {
+      margin-top: 8px;
+      background: var(--bg-soft);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.87rem;
+      line-height: 1.5;
+    }
+    .task .qa .ans { color: var(--accent); font-weight: 600; }
+
+    /* Findings */
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin: 16px 0 4px;
+    }
+    .finding {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .finding .big {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+      font-size: 1.35rem; font-weight: 650; color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .finding p { font-size: 0.92rem; margin: 0; color: var(--text-soft); }
+    .finding p b { color: var(--text); }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: -apple-system, "Segoe UI", "Helvetica Neue", sans-serif;
+      font-size: 0.8rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    thead th {
+      background: var(--bg-soft);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+    th, td { padding: 6px 10px; text-align: center; border-bottom: 1px solid var(--border); }
+    th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--bg); z-index: 1; }
+    thead th:first-child { background: var(--bg-soft); }
+    tbody tr:last-child td { border-bottom: 0; }
+    .grp th { border-bottom: 0; padding-bottom: 2px; }
+    .grp th.g0 { color: var(--l0); } .grp th.g1 { color: var(--l1); }
+    .grp th.g2 { color: var(--l2); } .grp th.g3 { color: var(--l3); }
+    .sub th { font-weight: 500; font-size: 0.74rem; color: var(--text-soft); padding-top: 2px; }
+    td.avg, th.avg { background: var(--bg-soft); font-weight: 600; }
+    tr.cat td {
+      background: var(--bg-soft);
+      color: var(--text-soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    tr.human td { color: var(--text-soft); font-style: italic; }
+    tr.human td:first-child { font-style: normal; }
+    tr.ours td { font-weight: 600; }
+    tr.ours td:first-child { color: var(--accent); }
+    td.best { font-weight: 700; color: var(--accent); }
+    .table-note { color: var(--text-soft); font-size: 0.85rem; margin-top: 10px; text-align: center; }
+    .small-tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; align-items: start; margin-top: 14px; }
+    .small-tables table { white-space: normal; }
+    .small-tables h3 { margin-top: 0; text-align: center; font-size: 1rem; }
+
+    .fig-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+
+    .bibtex pre {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    footer {
+      padding: 36px 0 48px;
+      color: var(--text-soft);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <h1>GeoChrono: Benchmarking and Rethinking Long-Term Temporal Understanding in Remote Sensing</h1>
+    <div class="venue">ACM Multimedia 2026</div>
+
+    <div class="authors">
+      <a href="../../">Yujie Li</a><sup>1</sup>,
+      Jiancheng Pan<sup>2</sup>,
+      Zhiwei Wei<sup>3</sup>,
+      Jiuniu Wang<sup>4</sup>,
+      Mugen Peng<sup>1</sup>,
+      <a href="http://wenjia.ruantang.top/">Wenjia Xu</a><sup>1,&#9993;</sup>
+    </div>
+    <div class="affiliations">
+      <sup>1</sup>State Key Laboratory of Networking and Switching Technology, BUPT &nbsp;&nbsp;
+      <sup>2</sup>Tsinghua University<br>
+      <sup>3</sup>Hunan Normal University &nbsp;&nbsp;
+      <sup>4</sup>City University of Hong Kong
+    </div>
+
+    <div class="links">
+      <a href="https://arxiv.org/abs/xxxx.xxxx" title="arXiv link coming soon">&#128196; arXiv</a>
+      <a href="https://github.com/IntelliSensing/GeoChrono">&#128187; Code</a>
+      <a href="https://huggingface.co/datasets/Davidup1/GeoChrono-Data">&#129303; Data (HF)</a>
+      <a href="https://modelscope.cn/datasets/Davidup1/GeoChrono-Data">&#128230; Data (ModelScope)</a>
+      <a href="#leaderboard">&#127942; Leaderboard</a>
+      <a href="#bibtex">&#128214; BibTeX</a>
+    </div>
+  </header>
+
+  <section class="container teaser">
+    <div class="tldr">
+      <span class="tag">TL;DR</span>
+      <p>
+        We decompose long-term remote sensing understanding into a <b>four-level cognitive
+        hierarchy</b> and instantiate it as <b>ChronoBench</b> (12 sub-tasks, 17,689 validated QA pairs).
+        Benchmarking reveals that mainstream MLLMs fall drastically behind human experts, with
+        <b>Long-Term Memory</b> as the most critical bottleneck. We then propose <b>GeoChrono</b>,
+        an MLLM that models per-location temporal trajectories, reaching <b>78.34%</b> overall
+        accuracy&thinsp;&mdash;&thinsp;over 20 points above the best commercial model.
+      </p>
+    </div>
+    <figure>
+      <img src="./static/fig1.jpg" alt="Overview of ChronoBench's four-level hierarchy and GeoChrono's performance radar">
+      <figcaption>
+        ChronoBench decomposes long-term remote sensing understanding into a four-level cognitive
+        hierarchy. Built upon it, GeoChrono constructs per-location temporal trajectories to model
+        the long-term evolution of geographic parcels, achieving state-of-the-art performance and
+        human-level accuracy on several sub-tasks.
+      </figcaption>
+    </figure>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container">
+    <h2>A Four-Level Cognitive Hierarchy</h2>
+    <p style="text-align:justify">
+      The Earth evolves along space <em>and</em> time, yet most remote sensing interpretation methods
+      see only static snapshots or bi-temporal pairs. Understanding the continuous, long-term
+      trajectory of landscape transformation demands more: a model must perceive land cover,
+      recognize changes, memorize evolution histories, and reason across time and space. Inspired by
+      human cognition, we structure these competencies as four progressive levels, each framed by a
+      core question:
+    </p>
+    <div class="levels">
+      <div class="level l0">
+        <div class="lv">LEVEL 0</div>
+        <h4>Land Cover Perception</h4>
+        <div class="q">What is here at a given time?</div>
+        <div class="tasks">OP</div>
+      </div>
+      <div class="level l1">
+        <div class="lv">LEVEL 1</div>
+        <h4>Temporal Recognition</h4>
+        <div class="q">What changed between specified time points?</div>
+        <div class="tasks">BCC &middot; BCAC &middot; LCC &middot; BOC</div>
+      </div>
+      <div class="level l2">
+        <div class="lv">LEVEL 2</div>
+        <h4>Long-Term Memory</h4>
+        <div class="q">When did changes occur, and what is the complete evolution history?</div>
+        <div class="tasks">OAM &middot; OCM &middot; OHM</div>
+      </div>
+      <div class="level l3">
+        <div class="lv">LEVEL 3</div>
+        <h4>Spatio-Temporal Reasoning</h4>
+        <div class="q">What can be inferred by comparing across locations and time?</div>
+        <div class="tasks">CCME &middot; RDC &middot; OCO &middot; CSOCO</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container abstract">
+    <h2>Abstract</h2>
+    <p>
+      Remote sensing offers an unparalleled vantage point for observing the Earth's long-term
+      surface evolution, yet it demands that a model not only perceive land cover at isolated
+      moments, but also track changes, memorize evolution histories, and reason across time and
+      space. However, existing studies lack a systematic evaluation that dissects these distinct
+      competencies. To fill this gap, we introduce ChronoBench, a multidimensional benchmark that
+      decomposes this task into four progressive cognitive levels (i.e., Land Cover Perception,
+      Temporal Recognition, Long-Term Memory, and Spatio-Temporal Reasoning). ChronoBench comprises
+      12 sub-tasks and 17,689 rigorously validated QA pairs. Extensive evaluations reveal that
+      mainstream MLLMs fall drastically behind human experts, with Long-Term Memory emerging as the
+      most critical bottleneck. Motivated by this finding, we further propose GeoChrono, an MLLM
+      with enhanced capabilities for tracing, memorizing, and reasoning about long-term geographic
+      evolution. Leveraging the physical prior that geographic parcels remain spatially fixed while
+      their semantics evolve, we design a Temporal Trajectory Encoder (TempEnc) that constructs
+      per-location temporal trajectories for dedicated land cover evolution modeling, and we
+      introduce a Coarse-to-Fine Token Compressor (C2FComp) that adaptively preserves dynamic
+      regions while compressing the static background. To support training, we also construct
+      ChronoInstruct, a 104K-sample instruction-tuning dataset spanning all competency levels.
+      GeoChrono achieves state-of-the-art performance on ChronoBench, surpassing the leading
+      commercial MLLMs by over 20%, while C2FComp reduces visual tokens by over 56% while retaining
+      94.6% of GeoChrono's performance.
+    </p>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container" id="benchmark">
+    <h2>The ChronoBench Benchmark</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">3,469</div><div class="d">high-resolution images (1024&times;1024)</div></div>
+      <div class="stat"><div class="n">500</div><div class="d">regions across 39 U.S. cities</div></div>
+      <div class="stat"><div class="n">17,689</div><div class="d">rigorously validated QA pairs</div></div>
+      <div class="stat"><div class="n">12</div><div class="d">sub-tasks over 4 cognitive levels</div></div>
+      <div class="stat"><div class="n">7.26</div><div class="d">temporal frames per QA on average</div></div>
+      <div class="stat"><div class="n">104,949</div><div class="d">ChronoInstruct training samples</div></div>
+    </div>
+
+    <h3 style="text-align:center">Explore the 12 Sub-Tasks</h3>
+    <div class="tabs" role="tablist">
+      <button class="t0" role="tab" aria-selected="true" onclick="showLevel(0)">L0 &middot; Perception</button>
+      <button class="t1" role="tab" aria-selected="false" onclick="showLevel(1)">L1 &middot; Recognition</button>
+      <button class="t2" role="tab" aria-selected="false" onclick="showLevel(2)">L2 &middot; Memory</button>
+      <button class="t3" role="tab" aria-selected="false" onclick="showLevel(3)">L3 &middot; Reasoning</button>
+    </div>
+
+    <div class="task-panel p0 active" id="panel0">
+      <div class="task">
+        <b>Object Perception</b> <span class="abbr">OP</span>
+        <p style="margin:4px 0 0;font-size:0.88rem;color:var(--text-soft)">Identify the land cover
+        at a specified location and timestamp, grounded by an HBB box or geographic coordinates.</p>
+        <div class="qa"><b>Q:</b> In 2013, what is the land cover type of the region grounded by
+        &#10216;580, 256, 769, 611&#10217;?<br><b>A:</b> <span class="ans">Vegetation</span></div>
+      </div>
+    </div>
+
+    <div class="task-panel p1" id="panel1">
+      <div class="task">
+        <b>Bi-Temporal Class-Level Change Recognition</b> <span class="abbr">BCC</span>
+        <div class="qa"><b>Q:</b> How has the vegetation changed comparing 2018 and 2021?<br>
+        <b>A:</b> <span class="ans">Vegetation &rarr; buildings; vegetation &rarr; non-vegetated surface</span></div>
+      </div>
+      <div class="task">
+        <b>Bi-Temporal Class-Level Area Change Recognition</b> <span class="abbr">BCAC</span>
+        <div class="qa"><b>Q:</b> How did the area of vegetation change comparing 2005 vs. 2023?
+        Select one: expanded or reduced.<br><b>A:</b> <span class="ans">Reduced</span></div>
+      </div>
+      <div class="task">
+        <b>Long-Temporal Class-Level Change Recognition</b> <span class="abbr">LCC</span>
+        <div class="qa"><b>Q:</b> What changes has the non-vegetated surface undergone in the period
+        of 2010 to 2022?<br><b>A:</b> <span class="ans">Non-vegetated surface &rarr; vegetation</span></div>
+      </div>
+      <div class="task">
+        <b>Bi-Temporal Object-Level Change Recognition</b> <span class="abbr">BOC</span>
+        <div class="qa"><b>Q:</b> Between 2018 and 2021, what land cover changes occurred within the
+        region &#10216;315, 107, 586, 449&#10217;-grounded vegetation? Select ALL that apply.<br>
+        <b>A:</b> <span class="ans">Vegetation &rarr; buildings; vegetation &rarr; non-vegetated surface</span></div>
+      </div>
+    </div>
+
+    <div class="task-panel p2" id="panel2">
+      <div class="task">
+        <b>Object Appear Memory</b> <span class="abbr">OAM</span>
+        <div class="qa"><b>Q:</b> Identify the interval during which the &#10216;0, 123, 181, 326&#10217;-grounded
+        vegetation in 2021 began its current continuous presence.<br>
+        <b>A:</b> <span class="ans">2011&ndash;2013</span></div>
+      </div>
+      <div class="task">
+        <b>Object Change Memory</b> <span class="abbr">OCM</span>
+        <div class="qa"><b>Q:</b> Identify the interval during which the vegetation in 2008 grounded
+        by &#10216;196, 791, 344, 908&#10217; changed to other land cover.<br>
+        <b>A:</b> <span class="ans">2015&ndash;2017</span></div>
+      </div>
+      <div class="task">
+        <b>Object History Memory</b> <span class="abbr">OHM</span>
+        <div class="qa"><b>Q:</b> Provide the chronological sequence of distinct land cover phases
+        for the building in 2023 referred to by &#10216;210, 155, 277, 172&#10217;.<br>
+        <b>A:</b> <span class="ans">Vegetation &rarr; buildings</span></div>
+      </div>
+    </div>
+
+    <div class="task-panel p3" id="panel3">
+      <div class="task">
+        <b>Class-Level Change Magnitude Estimation</b> <span class="abbr">CCME</span>
+        <div class="qa"><b>Q:</b> In which interval did the vegetation undergo the sharpest change?<br>
+        <b>A:</b> <span class="ans">2012&ndash;2014</span></div>
+      </div>
+      <div class="task">
+        <b>Region Development Comparison</b> <span class="abbr">RDC</span>
+        <div class="qa"><b>Q:</b> Among Region1 &#10216;58, 19, 130, 293&#10217;, Region2 &#10216;63, 465, 148, 647&#10217;,
+        Region3 &#10216;589, 130, 640, 321&#10217; and Region4 &#10216;700, 516, 862, 672&#10217;, which is the most
+        developed from 2010 to 2021?<br><b>A:</b> <span class="ans">Region 3</span></div>
+      </div>
+      <div class="task">
+        <b>Object Construction Ordering</b> <span class="abbr">OCO</span>
+        <div class="qa"><b>Q:</b> Comparing the building#1 grounded by &#10216;859, 200, 995, 278&#10217; and
+        the building#2 grounded by &#10216;0, 478, 96, 612&#10217; in 2023, which is built earlier?<br>
+        <b>A:</b> <span class="ans">Building #2</span></div>
+      </div>
+      <div class="task">
+        <b>Cross-Sequence Object Construction Ordering</b> <span class="abbr">CSOCO</span>
+        <div class="qa"><b>Q:</b> Comparing the building#1 at &#10216;838, 79, 913, 163&#10217; in Region#1 in
+        2021 with the building#2 at &#10216;33, 943, 131, 999&#10217; in Region#2 in 2023, identify which was
+        constructed first.<br><b>A:</b> <span class="ans">Building #1</span></div>
+      </div>
+    </div>
+
+    <figure style="margin-top:22px">
+      <img src="./static/fig2.jpg" alt="Task taxonomy of ChronoBench with example QA pairs for all 12 sub-tasks" loading="lazy">
+      <figcaption>
+        Task taxonomy of ChronoBench. Seven spatially grounded sub-tasks provide both HBB-box and
+        geo-coordinate variants; answers span single-choice, multiple-choice, and ordered-sequence
+        formats.
+      </figcaption>
+    </figure>
+
+    <h3>Reproducible, Rule-Based Construction</h3>
+    <p style="text-align:justify">
+      All QA pairs are generated by deterministic rule-based programs that traverse pre-existing,
+      human-annotated semantic change masks&thinsp;&mdash;&thinsp;no model-generated labels in the loop&thinsp;&mdash;&thinsp;followed
+      by a two-stage human quality-control process with independent annotators and a domain-expert
+      supervisor. The same pipeline scales up to ChronoInstruct, a 104,949-sample instruction-tuning
+      dataset with multiple-choice, short-text, and free-form natural-language answers.
+    </p>
+    <figure>
+      <img src="./static/fig3.jpg" alt="Overview of the data construction pipeline" style="max-width:620px" loading="lazy">
+      <figcaption>Overview of the data construction pipeline.</figcaption>
+    </figure>
+    <div class="fig-pair">
+      <figure>
+        <img src="./static/data_statistic_bench.png" alt="QA distribution across levels and sub-tasks in ChronoBench" loading="lazy">
+        <figcaption>QA distribution in ChronoBench (17,689 pairs).</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/data_statistic_instruct.png" alt="QA distribution across levels and sub-tasks in ChronoInstruct" loading="lazy">
+        <figcaption>QA distribution in ChronoInstruct (104,949 pairs).</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container">
+    <h2>How Well Do MLLMs Understand Long-Term Dynamics?</h2>
+    <div class="findings">
+      <div class="finding">
+        <div class="big">92.28% vs. 57.48%</div>
+        <p><b>A substantial human&ndash;machine gap.</b> Human experts confirm the tasks are unambiguous
+        and solvable, yet the best commercial model (Gemini-3-Flash) trails them by ~35 points;
+        open-source models peak at 46.73%.</p>
+      </div>
+      <div class="finding">
+        <div class="big">&lt; 5% on OHM</div>
+        <p><b>Long-Term Memory is the critical bottleneck.</b> On reconstructing complete evolution
+        histories, open-source models nearly collapse (0.45&ndash;4.55%) and RS domain models stay below
+        2.5%, despite being trained on temporal RS data.</p>
+      </div>
+      <div class="finding">
+        <div class="big">Scaling &ne; solution</div>
+        <p><b>Parameter scaling is inconsistent.</b> Growing InternVL-3.5 from 4B to 14B barely moves
+        memory and reasoning scores; brute-force scaling does not bridge the gap to human
+        cognition.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container">
+    <h2>The GeoChrono Model</h2>
+    <p style="text-align:justify">
+      Temporal remote sensing sequences differ fundamentally from natural video: <em>geographic
+      parcels remain spatially fixed while their semantics evolve</em>, and only a small fraction of a
+      wide-area scene changes meaningfully across frames. GeoChrono turns both physical priors into
+      architecture:
+    </p>
+    <figure>
+      <img src="./static/fig4.png" alt="GeoChrono framework: Temporal Trajectory Encoder and Coarse-to-Fine Token Compressor" loading="lazy">
+      <figcaption>
+        Overview of the GeoChrono framework, built upon Qwen3-VL-4B-Instruct.
+      </figcaption>
+    </figure>
+    <h3>Temporal Trajectory Encoder (TempEnc)</h3>
+    <p style="text-align:justify">
+      TempEnc decouples the spatio-temporal feature volume into <b>per-location temporal
+      trajectories</b>: after spatial context aggregation, tokens sharing the same spatial index are
+      grouped across all frames and modeled with hybrid attention&thinsp;&mdash;&thinsp;half the heads bidirectional
+      to capture global change patterns, half causal to preserve chronological progression&thinsp;&mdash;&thinsp;plus
+      text-guided semantic focusing that filters task-irrelevant temporal information. TempEnc adds
+      only 0.8% memory and 0.7% FLOPs, yet lifts overall accuracy from 72.52% to 78.34%.
+    </p>
+    <h3>Coarse-to-Fine Token Compressor (C2FComp)</h3>
+    <p style="text-align:justify">
+      Exploiting <em>change sparsity</em>, C2FComp scores each spatial block's relevance to the text
+      instruction, keeps full-resolution tokens for salient regions, and condenses the static
+      background into compact coarse tokens (differentiable top-K via Gumbel-Softmax). At the 1/4
+      selection ratio it removes <b>56.3% of visual tokens and 56.5% of FLOPs while retaining 94.6%</b>
+      of full-model performance&thinsp;&mdash;&thinsp;beating uniform 768&times;768 downsampling on both compression and
+      accuracy.
+    </p>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container wide" id="leaderboard">
+    <h2>&#127942; ChronoBench Leaderboard</h2>
+    <p style="text-align:center;color:var(--text-soft);font-size:0.95rem">
+      Accuracy (%) on ChronoBench. <b>Bold green</b> marks the best model result per column;
+      the human row is a reference upper bound. Coord / Box denote geo-coordinate and HBB-box
+      grounding variants.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr class="grp">
+            <th rowspan="3">Method</th>
+            <th colspan="3" class="g0">Land Cover Perception</th>
+            <th colspan="6" class="g1">Temporal Recognition</th>
+            <th colspan="7" class="g2">Long-Term Memory</th>
+            <th colspan="7" class="g3">Spatio-Temporal Reasoning</th>
+            <th rowspan="3" class="avg">OA</th>
+          </tr>
+          <tr class="grp">
+            <th colspan="2">OP</th><th rowspan="2" class="avg">AVG</th>
+            <th rowspan="2">BCAC</th><th rowspan="2">BCC</th><th rowspan="2">LCC</th><th colspan="2">BOC</th><th rowspan="2" class="avg">AVG</th>
+            <th colspan="2">OAM</th><th colspan="2">OCM</th><th colspan="2">OHM</th><th rowspan="2" class="avg">AVG</th>
+            <th rowspan="2">CCME</th><th rowspan="2">RDC</th><th colspan="2">OCO</th><th colspan="2">CSOCO</th><th rowspan="2" class="avg">AVG</th>
+          </tr>
+          <tr class="sub">
+            <th>Coord</th><th>Box</th>
+            <th>Coord</th><th>Box</th>
+            <th>Coord</th><th>Box</th><th>Coord</th><th>Box</th><th>Coord</th><th>Box</th>
+            <th>Coord</th><th>Box</th><th>Coord</th><th>Box</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="human"><td>Human</td><td>98.52</td><td>95.56</td><td class="avg">97.04</td><td>94.81</td><td>82.96</td><td>82.96</td><td>98.52</td><td>89.63</td><td class="avg">89.78</td><td>98.52</td><td>97.04</td><td>91.11</td><td>87.41</td><td>85.93</td><td>90.37</td><td class="avg">91.73</td><td>78.52</td><td>97.78</td><td>99.26</td><td>100.00</td><td>99.26</td><td>98.52</td><td class="avg">95.56</td><td class="avg">92.28</td></tr>
+          <tr class="cat"><td colspan="25">Commercial models</td></tr>
+          <tr><td>Gemini-3-Flash</td><td>65.06</td><td>65.96</td><td class="avg">65.51</td><td>82.00</td><td>50.53</td><td>52.45</td><td>55.85</td><td>56.16</td><td class="avg">61.38</td><td>56.44</td><td>58.44</td><td>46.68</td><td>47.75</td><td>25.00</td><td>21.36</td><td class="avg">47.52</td><td>37.79</td><td class="best">63.64</td><td class="best">68.05</td><td>78.01</td><td>54.36</td><td>66.67</td><td class="avg">59.89</td><td class="avg">57.48</td></tr>
+          <tr><td>GPT-5.4</td><td>47.07</td><td>40.00</td><td class="avg">43.53</td><td>80.00</td><td>50.76</td><td>53.87</td><td>66.13</td><td>60.00</td><td class="avg">67.57</td><td>47.69</td><td>41.52</td><td>35.36</td><td>46.09</td><td>26.14</td><td>20.00</td><td class="avg">39.21</td><td>30.73</td><td>30.51</td><td>53.83</td><td>70.60</td><td>52.43</td><td>69.12</td><td class="avg">50.42</td><td class="avg">56.29</td></tr>
+          <tr><td>Seed-1.6-Vision</td><td>50.98</td><td>73.23</td><td class="avg">62.11</td><td>81.91</td><td>46.27</td><td>53.73</td><td>47.08</td><td>58.47</td><td class="avg">63.87</td><td>37.08</td><td>47.05</td><td>37.22</td><td>41.85</td><td>20.00</td><td>18.41</td><td class="avg">36.86</td><td>31.22</td><td>38.98</td><td>56.52</td><td>73.29</td><td>55.83</td><td>79.41</td><td class="avg">53.74</td><td class="avg">55.48</td></tr>
+          <tr class="cat"><td colspan="25">Open-source general models</td></tr>
+          <tr><td>InternVL-3.5-4B</td><td>45.41</td><td>58.65</td><td class="avg">52.03</td><td>54.83</td><td>32.57</td><td>27.95</td><td>24.51</td><td>24.20</td><td class="avg">38.19</td><td>22.03</td><td>21.49</td><td>6.09</td><td>10.20</td><td>1.36</td><td>0.91</td><td class="avg">13.33</td><td>22.76</td><td>33.33</td><td>54.66</td><td>49.28</td><td>50.49</td><td>52.45</td><td class="avg">42.07</td><td class="avg">33.25</td></tr>
+          <tr><td>InternVL-3.5-8B</td><td>33.08</td><td>45.56</td><td class="avg">39.32</td><td>56.29</td><td>28.31</td><td>28.49</td><td>35.60</td><td>39.35</td><td class="avg">43.21</td><td>25.11</td><td>24.30</td><td>13.91</td><td>16.95</td><td>1.60</td><td>3.41</td><td class="avg">16.93</td><td>30.40</td><td>39.55</td><td>51.35</td><td>53.21</td><td>57.77</td><td>47.55</td><td class="avg">45.11</td><td class="avg">36.32</td></tr>
+          <tr><td>InternVL-3.5-14B</td><td>40.90</td><td>55.94</td><td class="avg">48.42</td><td>64.15</td><td>33.41</td><td>30.66</td><td>36.43</td><td>30.08</td><td class="avg">45.67</td><td>22.39</td><td>21.76</td><td>15.76</td><td>19.07</td><td>0.45</td><td>0.91</td><td class="avg">16.45</td><td>21.95</td><td>28.25</td><td>52.38</td><td>53.83</td><td>48.06</td><td>49.51</td><td class="avg">41.42</td><td class="avg">37.76</td></tr>
+          <tr><td>Qwen3-VL-4B</td><td>35.19</td><td>41.35</td><td class="avg">38.27</td><td>66.94</td><td>31.13</td><td>36.77</td><td>23.96</td><td>16.73</td><td class="avg">42.07</td><td>22.76</td><td>18.95</td><td>18.94</td><td>22.52</td><td>2.95</td><td>4.55</td><td class="avg">17.54</td><td>21.30</td><td>23.16</td><td>47.83</td><td>47.83</td><td>54.85</td><td>53.92</td><td class="avg">39.53</td><td class="avg">35.10</td></tr>
+          <tr><td>Qwen3-VL-8B</td><td>39.40</td><td>41.96</td><td class="avg">40.68</td><td>69.21</td><td>29.15</td><td>43.15</td><td>31.98</td><td>29.26</td><td class="avg">47.12</td><td>29.74</td><td>28.56</td><td>17.48</td><td>20.00</td><td>2.95</td><td>0.91</td><td class="avg">20.52</td><td>23.74</td><td>28.81</td><td>54.66</td><td>53.00</td><td>55.83</td><td>47.06</td><td class="avg">42.80</td><td class="avg">39.19</td></tr>
+          <tr><td>Qwen3-VL-32B</td><td>42.86</td><td>44.66</td><td class="avg">43.76</td><td>75.42</td><td>44.29</td><td>47.90</td><td>45.68</td><td>46.16</td><td class="avg">57.88</td><td>29.92</td><td>30.73</td><td>25.03</td><td>27.95</td><td>3.86</td><td>4.55</td><td class="avg">24.06</td><td>28.78</td><td>32.77</td><td>51.76</td><td>59.83</td><td>59.71</td><td>62.25</td><td class="avg">47.23</td><td class="avg">46.73</td></tr>
+          <tr class="cat"><td colspan="25">Remote sensing domain models</td></tr>
+          <tr><td>TEOChat-7B</td><td>32.63</td><td>36.99</td><td class="avg">34.81</td><td>48.85</td><td>14.23</td><td>4.21</td><td>17.27</td><td>24.25</td><td class="avg">30.07</td><td>24.75</td><td>27.83</td><td>4.11</td><td>6.62</td><td>1.59</td><td>1.14</td><td class="avg">14.64</td><td>17.40</td><td>27.68</td><td>50.93</td><td>53.21</td><td>9.22</td><td>22.06</td><td class="avg">33.35</td><td class="avg">26.82</td></tr>
+          <tr><td>EarthDial-4B</td><td>36.99</td><td>40.30</td><td class="avg">38.65</td><td>54.83</td><td>18.04</td><td>4.34</td><td>17.72</td><td>24.09</td><td class="avg">33.08</td><td>26.20</td><td>26.20</td><td>17.48</td><td>17.75</td><td>0.68</td><td>1.36</td><td class="avg">18.56</td><td>15.61</td><td>22.03</td><td>48.44</td><td>46.38</td><td>41.75</td><td>52.45</td><td class="avg">36.25</td><td class="avg">30.11</td></tr>
+          <tr><td>DVLChat-4B</td><td>48.57</td><td>46.92</td><td class="avg">47.74</td><td>85.90</td><td>31.81</td><td>37.18</td><td>34.21</td><td>30.46</td><td class="avg">54.48</td><td>29.56</td><td>26.93</td><td>24.37</td><td>29.93</td><td>2.50</td><td>2.05</td><td class="avg">22.91</td><td>17.24</td><td>25.42</td><td>50.72</td><td>51.76</td><td>58.74</td><td>55.39</td><td class="avg">40.59</td><td class="avg">44.07</td></tr>
+          <tr class="cat"><td colspan="25">Ours</td></tr>
+          <tr class="ours"><td>GeoChrono</td><td class="best">83.91</td><td class="best">93.38</td><td class="avg best">88.65</td><td class="best">93.66</td><td class="best">65.91</td><td class="best">76.66</td><td class="best">77.83</td><td class="best">80.27</td><td class="avg best">83.03</td><td class="best">72.71</td><td class="best">87.04</td><td class="best">68.61</td><td class="best">75.10</td><td class="best">31.59</td><td class="best">32.73</td><td class="avg best">68.10</td><td class="best">62.60</td><td>61.58</td><td>61.49</td><td class="best">92.55</td><td class="best">75.24</td><td class="best">92.16</td><td class="avg best">72.92</td><td class="avg best">78.34</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">
+      Want your model listed? Open an issue or pull request with your predictions at
+      <a href="https://github.com/IntelliSensing/GeoChrono" style="color:var(--accent)">IntelliSensing/GeoChrono</a>.
+    </p>
+
+    <div class="small-tables">
+      <div>
+        <h3>Zero-Shot Generalization</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr class="grp"><th rowspan="2">Method</th><th colspan="3">DVL-Bench</th><th rowspan="2">CDVQA</th></tr>
+              <tr class="sub"><th>BCA-Single</th><th>BCA-Multi</th><th>CSE-Single</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>TEOChat</td><td>35.1</td><td>8.7</td><td>17.0</td><td>50.0</td></tr>
+              <tr><td>EarthDial</td><td>62.2</td><td>20.3</td><td>30.9</td><td>52.1</td></tr>
+              <tr><td>DVLChat</td><td>64.9</td><td>21.3</td><td>31.3</td><td>43.7</td></tr>
+              <tr class="ours"><td>GeoChrono</td><td class="best">72.9</td><td class="best">42.1</td><td class="best">35.7</td><td class="best">59.2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3>C2FComp: Efficiency vs. Performance</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Selection ratio</th><th>FLOPs</th><th>Visual tokens</th><th>OA</th><th>Perf. ratio</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>w/o C2FComp</td><td>100%</td><td>100%</td><td>78.34</td><td>100.0%</td></tr>
+              <tr><td>768&times;768 resize</td><td>&minus;48.75%</td><td>&minus;43.75%</td><td>73.95</td><td>94.4%</td></tr>
+              <tr><td>1/2</td><td>&minus;39.22%</td><td>&minus;37.50%</td><td>74.58</td><td>95.2%</td></tr>
+              <tr class="ours"><td>1/4</td><td>&minus;56.53%</td><td>&minus;56.25%</td><td>74.11</td><td>94.6%</td></tr>
+              <tr><td>1/16</td><td>&minus;68.49%</td><td>&minus;70.31%</td><td>72.60</td><td>92.7%</td></tr>
+              <tr><td>1/64</td><td>&minus;71.34%</td><td>&minus;73.83%</td><td>71.56</td><td>91.4%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container bibtex" id="bibtex">
+    <h2>BibTeX</h2>
+    <pre>@inproceedings{li2026geochrono,
+  title     = {GeoChrono: Benchmarking and Rethinking Long-Term Temporal
+               Understanding in Remote Sensing},
+  author    = {Li, Yujie and Pan, Jiancheng and Wei, Zhiwei and Wang, Jiuniu
+               and Peng, Mugen and Xu, Wenjia},
+  booktitle = {Proceedings of the 34th ACM International Conference on
+               Multimedia (ACM MM)},
+  year      = {2026}
+}</pre>
+  </section>
+
+  <footer class="container">
+    <a href="../../">&larr; Back to homepage</a><br>
+    Related projects: <a href="https://github.com/IntelliSensing/BTCChat">BTCChat</a> &middot;
+    <a href="https://github.com/IntelliSensing/UniRS">UniRS</a><br>
+    Website template inspired by <a href="https://nerfies.github.io/" rel="noopener">Nerfies</a>.
+  </footer>
+
+  <script>
+    function showLevel(i) {
+      for (var k = 0; k < 4; k++) {
+        document.querySelectorAll(".tabs button")[k].setAttribute("aria-selected", k === i ? "true" : "false");
+        document.getElementById("panel" + k).classList.toggle("active", k === i);
+      }
+    }
+  </script>
+
+</body>
+</html>
