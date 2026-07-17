@@ -4,6 +4,9 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
+# 本机访问 Google Scholar 需走代理(cron 环境不加载 shell profile,须显式设置)
+HTTP_PROXY=http://127.0.0.1:20171 HTTPS_PROXY=http://127.0.0.1:20171 \
+ALL_PROXY=http://127.0.0.1:20171 NO_PROXY= \
 python3 scripts/fetch_gs_citations.py
 
 TMP=$(mktemp -d)
