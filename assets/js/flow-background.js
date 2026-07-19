@@ -27,7 +27,7 @@
   var t0 = Math.random() * 100;
   var t = t0, targetT = t0;
   var rafId = 0;
-  var SCROLL_RATE = 0.0005; // noise-time advance per scrolled px
+  var SCROLL_RATE = 0.0008; // noise-time advance per scrolled px
 
   function palette() {
     if (darkScheme.matches) {
