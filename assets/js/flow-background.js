@@ -1,7 +1,9 @@
-/* Ambient animated background: slowly drifting color washes overlaid with
- * evolving topographic contour lines drawn from a 3-D value-noise field.
- * Self-contained (no assets, no deps). Respects prefers-reduced-motion and
- * prefers-color-scheme; the center column is masked so text stays readable. */
+/* Ambient background: color washes overlaid with topographic contour lines
+ * drawn from a 3-D value-noise field. The scene is still while the reader is
+ * still; the terrain evolves only with page scroll (damped), like scrubbing
+ * a time axis. Self-contained (no assets, no deps). Respects
+ * prefers-reduced-motion and prefers-color-scheme; the center column is
+ * masked so text stays readable. */
 (function () {
   "use strict";
   if (window.__flowBackground) return;
@@ -22,8 +24,10 @@
   var CELL = 26;            // contour grid cell in CSS px
   var cols = 0, rows = 0;
   var field = null;
-  var t = Math.random() * 100;
-  var rafId = 0, lastFrame = 0;
+  var t0 = Math.random() * 100;
+  var t = t0, targetT = t0;
+  var rafId = 0;
+  var SCROLL_RATE = 0.0005; // noise-time advance per scrolled px
 
   function palette() {
     if (darkScheme.matches) {
@@ -147,39 +151,49 @@
     }
   }
 
-  function loop(now) {
-    rafId = requestAnimationFrame(loop);
-    if (now - lastFrame < 45) return; // ~22 fps is plenty for this motion
-    lastFrame = now;
-    t += 0.006;
+  function settle() {
+    var diff = targetT - t;
+    if (Math.abs(diff) < 0.001) {
+      t = targetT;
+      draw();
+      rafId = 0;
+      return;
+    }
+    t += diff * 0.09; // damped approach keeps fast scrolling fluid
     draw();
+    rafId = requestAnimationFrame(settle);
+  }
+
+  function onScroll() {
+    if (reduceMotion.matches) return;
+    targetT = t0 + window.scrollY * SCROLL_RATE;
+    if (!rafId) rafId = requestAnimationFrame(settle);
   }
 
   function start() {
-    cancelAnimationFrame(rafId);
-    if (reduceMotion.matches) {
-      draw(); // single static frame
-    } else {
-      rafId = requestAnimationFrame(loop);
-    }
+    if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    t = targetT = reduceMotion.matches ? t0 : t0 + window.scrollY * SCROLL_RATE;
+    draw();
   }
-
-  function onSchemeChange() { if (reduceMotion.matches) draw(); }
 
   var resizeTimer = 0;
   window.addEventListener("resize", function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () { resize(); draw(); }, 120);
   });
+  window.addEventListener("scroll", onScroll, { passive: true });
   if (reduceMotion.addEventListener) {
     reduceMotion.addEventListener("change", start);
-    darkScheme.addEventListener("change", onSchemeChange);
+    darkScheme.addEventListener("change", function () { draw(); });
   }
 
   function mount() {
+    canvas.style.opacity = "0";
+    canvas.style.transition = "opacity 1.4s ease";
     document.body.insertBefore(canvas, document.body.firstChild);
     resize();
     start();
+    requestAnimationFrame(function () { canvas.style.opacity = "1"; });
   }
   if (document.body) mount();
   else document.addEventListener("DOMContentLoaded", mount);
