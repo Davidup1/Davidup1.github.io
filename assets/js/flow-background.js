@@ -14,8 +14,8 @@
   canvas.setAttribute("aria-hidden", "true");
   canvas.style.cssText =
     "position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;" +
-    "-webkit-mask-image:linear-gradient(90deg,#000,rgba(0,0,0,0.45) 30%,rgba(0,0,0,0.45) 70%,#000);" +
-    "mask-image:linear-gradient(90deg,#000,rgba(0,0,0,0.45) 30%,rgba(0,0,0,0.45) 70%,#000);";
+    "-webkit-mask-image:linear-gradient(90deg,#000,rgba(0,0,0,0.42) 30%,rgba(0,0,0,0.42) 70%,#000);" +
+    "mask-image:linear-gradient(90deg,#000,rgba(0,0,0,0.42) 30%,rgba(0,0,0,0.42) 70%,#000);";
   var ctx = canvas.getContext("2d");
 
   var W = 0, H = 0, dpr = 1;
@@ -28,15 +28,15 @@
   function palette() {
     if (darkScheme.matches) {
       return {
-        blobs: [["147,189,158", 0.11], ["211,183,92", 0.06], ["159,180,214", 0.075]],
+        blobs: [["147,189,158", 0.095], ["211,183,92", 0.052], ["159,180,214", 0.065]],
         stroke: "147,189,158",
-        strokeAlpha: 0.19
+        strokeAlpha: 0.165
       };
     }
     return {
-      blobs: [["78,122,94", 0.14], ["180,112,46", 0.085], ["86,116,159", 0.10]],
+      blobs: [["78,122,94", 0.12], ["180,112,46", 0.072], ["86,116,159", 0.085]],
       stroke: "62,104,78",
-      strokeAlpha: 0.28
+      strokeAlpha: 0.24
     };
   }
 
