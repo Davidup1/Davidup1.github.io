@@ -347,9 +347,12 @@
       The Earth evolves along space <em>and</em> time, yet most remote sensing interpretation methods
       see only static snapshots or bi-temporal pairs. Understanding the continuous, long-term
       trajectory of landscape transformation demands more: a model must perceive land cover,
-      recognize changes, memorize evolution histories, and reason across time and space. Inspired by
-      human cognition, we structure these competencies as four progressive levels, each framed by a
-      core question:
+      recognize changes, memorize evolution histories, and reason across time and space. Prior
+      benchmarks organized around application scenarios have shown <em>that</em> MLLMs struggle with
+      long-term remote sensing, but not <em>which</em> underlying competency fails. ChronoBench is
+      built to answer exactly that: inspired by human cognition, it isolates these competencies as
+      four progressive levels, each framed by a core question, so that a failure at any level points
+      to a specific missing capability:
     </p>
     <div class="levels">
       <div class="level l0">
@@ -377,6 +380,12 @@
         <div class="tasks">CCME &middot; RDC &middot; OCO &middot; CSOCO</div>
       </div>
     </div>
+    <p style="text-align:justify;font-size:0.95rem;color:var(--text-soft)">
+      Each level withholds one more piece of information from the model. The pivotal step is from
+      Level&nbsp;1 to Level&nbsp;2: in Level&nbsp;1 the time points are <b>given as inputs</b>, whereas
+      Level&nbsp;2 requires the model to <b>recall temporal information as outputs</b>&thinsp;&mdash;&thinsp;the
+      watershed between perceiving change and remembering history.
+    </p>
   </section>
 
   <div class="container"><hr></div>
@@ -576,7 +585,10 @@
       Temporal remote sensing sequences differ fundamentally from natural video: <em>geographic
       parcels remain spatially fixed while their semantics evolve</em>, and only a small fraction of a
       wide-area scene changes meaningfully across frames. GeoChrono turns both physical priors into
-      architecture:
+      architecture: the <b>Temporal Trajectory Encoder (TempEnc)</b> is the core module that directly
+      targets the Long-Term Memory bottleneck diagnosed above, while the <b>Coarse-to-Fine Token
+      Compressor (C2FComp)</b> builds on it as a further innovation for lightweight computation in
+      long-temporal scenarios:
     </p>
     <figure>
       <img src="./static/fig4.png" alt="GeoChrono framework: Temporal Trajectory Encoder and Coarse-to-Fine Token Compressor" loading="lazy">
@@ -701,6 +713,41 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <div class="container"><hr></div>
+
+  <section class="container">
+    <h2>Qualitative Results</h2>
+    <p style="text-align:justify">
+      Side-by-side cases reveal <em>how</em> baselines fail: they default to visually salient classes
+      when the queried target is small, over-select options in multi-choice change recognition, and
+      anchor memory answers near the reference year instead of tracing back to the actual event.
+      GeoChrono is the only model that answers all seven perception, recognition, and memory cases
+      correctly.
+    </p>
+    <figure>
+      <img src="./static/fig9.jpg" alt="Qualitative comparison on perception, recognition, and memory sub-tasks" loading="lazy">
+      <figcaption>
+        Qualitative results on Land Cover Perception (OP), Temporal Recognition (BCC, LCC, BOC), and
+        Long-Term Memory (OAM, OCM, OHM). GeoChrono is the only model that correctly answers all
+        seven tasks.
+      </figcaption>
+    </figure>
+    <p style="text-align:justify">
+      GeoChrono is not perfect either. On Object History Memory, when the ground-truth evolution
+      chain reaches length four or above, it exhibits <em>phase omission</em>: brief reversions to
+      vegetation amid an overall development trajectory are skipped, because dormant vegetation in
+      off-season imagery closely resembles non-vegetated surface. Sharpening this ambiguous class
+      boundary is a key direction for long-horizon temporal memory.
+    </p>
+    <figure>
+      <img src="./static/fig11.jpg" alt="Failure cases on Object History Memory showing phase omission" loading="lazy">
+      <figcaption>
+        Representative failure cases on Object History Memory: intermediate vegetation phases are
+        omitted from the predicted evolution chain.
+      </figcaption>
+    </figure>
   </section>
 
   <div class="container"><hr></div>
