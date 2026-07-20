@@ -24,6 +24,16 @@ main:
     code: https://github.com/IntelliSensing/GeoChrono
     image: ./assets/img/pubs/geochrono.png
 
+  - title: "Self in Space: Benchmarking Self-Awareness and Spatial Cognition in UAV Embodied Intelligence"
+    authors: Zhishan Zou, Guoyan Sun, Zhiwei Wei, Jiancheng Pan, <strong>Yujie Li</strong>, Mugen Peng, Wenjia Xu
+    conference_short: ACM MM
+    conference: ACM International Conference on Multimedia <strong>(ACM MM)</strong>, 2026.
+    page: https://choucisan.github.io/publications/self-in-space/
+    pdf: https://arxiv.org/abs/2607.12477
+    code: https://github.com/IntelliSensing/Self-in-Space
+    image: ./assets/img/pubs/self-in-space.png
+    s2id: arXiv:2607.12477
+
   - title: "Graph-RHO: Critical-path-aware Heterogeneous Graph Network for Long-Horizon Flexible Job-Shop Scheduling"
     authors: <strong>Yujie Li</strong>, Jiuniu Wang, Mugen Peng, Guangzuo Li, Wenjia Xu
     conference_short: IJCNN

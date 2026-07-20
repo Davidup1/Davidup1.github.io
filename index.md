@@ -15,7 +15,7 @@ My research focuses on intelligent interpretation of remote sensing imagery and 
 
 ## News
 
-- **[Jul. 2026]** Our paper <em>[GeoChrono](./papers/geochrono/)</em> on long-term temporal understanding in remote sensing is accepted to ACM MM 2026. 🎉
+- **[Jul. 2026]** Two papers accepted to ACM MM 2026: <em>[GeoChrono](./papers/geochrono/)</em> on long-term temporal understanding in remote sensing, and <em>[Self in Space](https://choucisan.github.io/publications/self-in-space/)</em> on self-awareness and spatial cognition in UAV embodied intelligence. 🎉
 - **[Apr. 2026]** Our paper <em>[Graph-RHO](https://arxiv.org/abs/2604.10073)</em> on flexible job-shop scheduling is accepted to IJCNN 2026. 🎉
 - **[Sep. 2025]** Our paper <em>[BTCChat](https://ieeexplore.ieee.org/abstract/document/11463503)</em> on bi-temporal change captioning is accepted to ICASSP 2026. 🎉
 - **[Sep. 2025]** I started my M.S. at the State Key Laboratory of Networking and Switching Technology, BUPT. 💪
