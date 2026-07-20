@@ -20,6 +20,7 @@ main:
     conference_short: ACM MM
     conference: ACM International Conference on Multimedia <strong>(ACM MM)</strong>, 2026.
     page: ./papers/geochrono/
+    pdf: https://arxiv.org/abs/2607.15768
     code: https://github.com/IntelliSensing/GeoChrono
     image: ./assets/img/pubs/geochrono.png
 
