@@ -1,0 +1,52 @@
+{
+  "updated": "2026-10-10 17:30 UTC",
+  "scholar_id": "gAfFuhsAAAAJ",
+  "total_citations": 97,
+  "h_index": 6,
+  "papers": {
+    "strugglewithadversarialdefensetrydiffusion": {
+      "title": "Struggle with Adversarial Defense? Try Diffusion",
+      "citations": 1
+    },
+    "geochronobenchmarkingandrethinkinglongtermtemporalunderstandinginremotesensing": {
+      "title": "GeoChrono: Benchmarking and Rethinking Long-Term Temporal Understanding in Remote Sensing",
+      "citations": 1
+    },
+    "selfinspacebenchmarkingselfawarenessandspatialcognitioninuavembodiedintelligence": {
+      "title": "Self in Space: Benchmarking Self-Awareness and Spatial Cognition in UAV Embodied Intelligence",
+      "citations": 8
+    },
+    "graphrhocriticalpathawareheterogeneousgraphnetworkforlonghorizonflexiblejobshopscheduling": {
+      "title": "Graph-RHO: Critical-path-aware Heterogeneous Graph Network for Long-Horizon Flexible Job-Shop Scheduling",
+      "citations": 0
+    },
+    "fedurlbertclientsplitfederatedbertformaliciousurldetection": {
+      "title": "Fed-urlBERT: Client-Split Federated BERT for Malicious URL Detection",
+      "citations": 5
+    },
+    "btcchatadvancingremotesensingbitemporalchangecaptioningwithmultimodallargelanguagemodel": {
+      "title": "BTCChat: Advancing Remote Sensing Bi-temporal Change Captioning with Multimodal Large Language Model",
+      "citations": 12
+    },
+    "continuousmultitaskpretrainingformaliciousurldetectionandwebpageclassification": {
+      "title": "Continuous multi-task pre-training for malicious URL detection and webpage classification",
+      "citations": 25
+    },
+    "unirsunifyingmultitemporalremotesensingtasksthroughvisionlanguagemodels": {
+      "title": "UniRS: Unifying multi-temporal remote sensing tasks through vision language models",
+      "citations": 21
+    },
+    "urlbertacontrastiveandadversarialpretrainedmodelforurlclassification": {
+      "title": "Urlbert: A contrastive and adversarial pre-trained model for url classification",
+      "citations": 13
+    },
+    "behavioralpropagationinfluencedbyfluctuatingpersonalityonsinglelayerlimitedcontactnetwork": {
+      "title": "Behavioral propagation influenced by fluctuating personality on single-layer limited-contact network",
+      "citations": 3
+    },
+    "fedurlbertclientsidelightweightfederatedtransformersforurlthreatanalysis": {
+      "title": "Fed-urlbert: Client-side lightweight federated transformers for url threat analysis",
+      "citations": 8
+    }
+  }
+}
