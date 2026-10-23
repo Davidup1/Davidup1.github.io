@@ -4,7 +4,7 @@ layout: homepage
 
 ## About Me
 
-I am an M.S. student at the [State Key Laboratory of Networking and Switching Technology](https://sklnst.bupt.edu.cn/), Beijing University of Posts and Telecommunications (BUPT), advised by [Prof. Wenjia Xu](http://wenjia.ruantang.top/). Before that, I received my B.E. degree from the School of Information and Communication Engineering, BUPT in 2025.
+I am an M.S. student at the [State Key Laboratory of Networking and Switching Technology](https://sklnst.bupt.edu.cn/), Beijing University of Posts and Telecommunications (BUPT), advised by [Prof. Wenjia Xu](http://wenjia.ruantang.top/). Before that, I received my B.E. degree from the School of Information and Communication Engineering, BUPT in 2025. I am currently a research intern with the Foundation Model Team at <img src="./assets/img/logos/kuaishou.svg" alt="" style="height: 1em; vertical-align: -0.12em; margin-right: 0.15em;">[Kuaishou](https://www.kuaishou.com/).
 
 My research focuses on intelligent interpretation of remote sensing imagery and multimodal large language models.
 
@@ -15,6 +15,7 @@ My research focuses on intelligent interpretation of remote sensing imagery and 
 
 ## News
 
+- **[Aug. 2026]** I joined the Foundation Model Team at <img src="./assets/img/logos/kuaishou.svg" alt="" style="height: 1em; vertical-align: -0.12em; margin-right: 0.15em;">Kuaishou as a research intern. 💼
 - **[Jul. 2026]** Two papers accepted to ACM MM 2026: <em>[GeoChrono](./papers/geochrono/)</em> on long-term temporal understanding in remote sensing, and <em>[Self in Space](https://choucisan.github.io/publications/self-in-space/)</em> on self-awareness and spatial cognition in UAV embodied intelligence. 🎉
 - **[Apr. 2026]** Our paper <em>[Graph-RHO](https://arxiv.org/abs/2604.10073)</em> on flexible job-shop scheduling is accepted to IJCNN 2026. 🎉
 - **[Sep. 2025]** Our paper <em>[BTCChat](https://ieeexplore.ieee.org/abstract/document/11463503)</em> on bi-temporal change captioning is accepted to ICASSP 2026. 🎉
