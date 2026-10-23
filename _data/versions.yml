@@ -24,3 +24,8 @@
   name: Bento
   url: /bento/
   desc: Card grid, light & dark
+
+- id: particles
+  name: Particles
+  url: /particles/
+  desc: WebGL particles & aurora

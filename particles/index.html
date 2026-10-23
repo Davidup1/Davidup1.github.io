@@ -1,0 +1,165 @@
+---
+layout: null
+permalink: /particles/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }} · Particles</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="keywords" content="{{ site.keywords }}">
+  <meta name="theme-color" content="#090c0b">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://davidup1.github.io/particles/">
+  <link rel="icon" href="{{ site.favicon_dark | remove_first: '.' }}" type="image/png">
+  <link rel="preload" href="/assets/v2/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/particles/particles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas class="aurora" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a class="nav__name" href="#top">Yujie Li</a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    {% include version-switcher.html current="particles" inline=true class="nav__vs" %}
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top">
+      <canvas class="hero__particles" aria-hidden="true"></canvas>
+      <div class="hero__stage">
+        <h1 class="hero__name">Yujie Li</h1>
+      </div>
+      <p class="hero__tag">Building multimodal models that <span class="grad">see, remember and reason</span> through time.</p>
+      <p class="hero__role">M.S. student @ BUPT · Research Intern @ Kuaishou Foundation Model Team</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#publications">View publications</a>
+        <a class="btn" href="mailto:{{ site.email }}">Email</a>
+        <a class="btn" href="{{ site.google_scholar }}" rel="noopener">Scholar</a>
+        <a class="btn" href="{{ site.github_link }}" rel="noopener">GitHub</a>
+      </div>
+      <p class="hero__hint" aria-hidden="true">move your cursor through the name</p>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section class="sec" id="about">
+      <p class="kicker">About</p>
+      <div class="about">
+        <div class="glass about__main">
+          <p class="lead">I&rsquo;m Yujie, a master&rsquo;s student at BUPT&rsquo;s State Key Laboratory of Networking and Switching Technology, advised by <a href="http://wenjia.ruantang.top/" rel="noopener">Prof. Wenjia Xu</a>, and a research intern on Kuaishou&rsquo;s Foundation Model Team. I build multimodal models that <span class="grad">understand change over time</span>, from decade-long satellite image series to long-term memory in large language models.</p>
+          <ul class="tags">
+            <li>Multimodal LLMs</li><li>Long-term memory</li><li>Visual QA</li>
+            <li>Temporal vision</li><li>Change captioning</li><li>Remote sensing</li>
+          </ul>
+        </div>
+        <div class="about__side">
+          <div class="glass stat" data-stats>
+            <p class="kicker kicker--sm">Google Scholar</p>
+            <div class="stat__nums">
+              <p><span class="num" data-stat="total">—</span><span class="unit">citations</span></p>
+              <p><span class="num num--sm" data-stat="h">—</span><span class="unit">h-index</span></p>
+              <p><span class="num num--sm" data-stat="i10">—</span><span class="unit">i10-index</span></p>
+            </div>
+            <figure class="spark" data-spark hidden>
+              <figcaption class="unit">Citations per year</figcaption>
+              <div class="spark__plot" role="img"></div>
+              <table class="sr-only"><caption>Citations per year</caption><tbody></tbody></table>
+            </figure>
+            <p class="stat__foot unit"><span data-stat="updated"></span><a href="{{ site.google_scholar }}" rel="noopener">View profile ↗</a></p>
+          </div>
+          <div class="glass now">
+            <img src="/assets/img/logos/kuaishou.svg" alt="Kuaishou logo">
+            <div><p class="kicker kicker--sm">Now</p><p>Research Intern<br><span class="dim">Foundation Model Team, Kuaishou</span></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Publications ============ -->
+    <section class="sec" id="publications">
+      <p class="kicker">Publications <span class="dim">({{ site.data.publications.main | size }})</span></p>
+      <div class="pubs">
+        {% for p in site.data.publications.main %}
+        {% if p.short %}{% assign short = p.short %}{% else %}{% assign short = p.title | split: ': ' | first %}{% endif %}
+        {% assign year = p.conference | strip_html | split: ', ' | last | remove: '.' | strip %}
+        <article class="glass pub">
+          {% if p.image %}<div class="pub__img"><img src="{{ p.image | replace_first: './', '/' }}" alt="" loading="lazy"></div>{% endif %}
+          <div class="pub__body">
+            <p class="pub__meta"><span class="chip">{{ p.conference_short }} {{ year }}</span><span class="pub__cite" data-gstitle="{{ p.title | escape }}"{% if p.s2id %} data-s2id="{{ p.s2id }}"{% endif %}></span></p>
+            <h3><span class="grad">{{ short }}</span>{% assign rest = p.title | remove_first: short | remove_first: ': ' %}{% if rest != p.title %}<span class="pub__sub">{{ rest }}</span>{% else %}<span class="pub__sub">{{ p.title }}</span>{% endif %}</h3>
+            <p class="pub__authors">{{ p.authors }}</p>
+            <p class="pub__links">
+              {% if p.pdf %}<a href="{{ p.pdf }}" rel="noopener">Paper ↗</a>{% endif %}
+              {% if p.code %}<a href="{{ p.code }}" rel="noopener">Code ↗</a>{% endif %}
+              {% if p.page %}<a href="{{ p.page | replace_first: './', '/' }}">Project ↗</a>{% endif %}
+              {% if p.bibtex %}<a href="{{ p.bibtex }}" rel="noopener">BibTeX ↗</a>{% endif %}
+            </p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- ============ News + Experience ============ -->
+    <section class="sec" id="news">
+      <div class="two">
+        <div>
+          <p class="kicker">News</p>
+          <ul class="glass news">
+            {% for n in site.data.news %}
+            <li><time>{{ n.date }}</time><p>{{ n.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="two__side">
+          <p class="kicker">Experience</p>
+          <ol class="glass exp">
+            {% for e in site.data.experience %}
+            <li>
+              <span class="exp__logo"><img src="{{ e.logo }}" alt="" loading="lazy"></span>
+              <div><h3>{{ e.role }}</h3><p>{{ e.org }}</p><p class="dim">{{ e.period }}</p></div>
+            </li>
+            {% endfor %}
+          </ol>
+          <p class="kicker kicker--gap">Honors &amp; Service</p>
+          <div class="glass honors-box">
+          <ul class="honors" data-scroll-fade tabindex="0" aria-label="Honors and service">
+            {% for a in site.data.honors.awards %}<li><span>{{ a.title }}</span><time>{{ a.date }}</time></li>{% endfor %}
+            {% for s in site.data.honors.services %}<li><span>Reviewer, {{ s.short }}</span><time>{{ s.year }}</time></li>{% endfor %}
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="sec contact" id="contact">
+      <p class="kicker">Contact</p>
+      <h2 class="contact__big grad">Let&rsquo;s connect.</h2>
+      <p class="dim">Open to research collaboration and conversations about multimodal models.</p>
+      <button class="btn btn--primary btn--lg" type="button" data-copy="{{ site.email }}"><span data-copy-label>{{ site.email }}</span></button>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© {{ site.time | date: "%Y" }} Yujie Li</span>
+    <span id="busuanzi_container_site_pv" style="display:none"><span id="busuanzi_value_site_pv"></span> visits</span>
+    <span>Rendered with WebGL, no libraries</span>
+  </footer>
+
+  <script>window.PARTICLES = { gs: {{ site.google_scholar_stats | jsonify }} };</script>
+  <script src="/assets/js/scholar-stats.js" defer></script>
+  <script src="/assets/particles/particles.js" defer></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

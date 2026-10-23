@@ -1,5 +1,6 @@
 /* Citation data shared by the homepage versions.
- * ScholarStats.load(url) resolves to { total, hIndex, updated, cites(title, s2id) → Promise<number|null> }.
+ * ScholarStats.load(url) resolves to
+ *   { total, hIndex, i10Index, perYear: {"2024": n, …} | null, updated, cites(title, s2id) → Promise<number|null> }.
  * Google Scholar numbers come from gs_data.json (google-scholar-stats branch);
  * papers missing there fall back to one batched Semantic Scholar request. */
 (function () {
@@ -32,6 +33,8 @@
       return {
         total: data ? data.total_citations : null,
         hIndex: data ? data.h_index : null,
+        i10Index: data ? data.i10_index : null,
+        perYear: data && data.cites_per_year ? data.cites_per_year : null,
         updated: data ? data.updated : null,
         cites: function (title, s2id) {
           var p = papers[norm(title)];

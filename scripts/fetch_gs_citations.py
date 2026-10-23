@@ -45,14 +45,27 @@ for raw_title, cites in rows:
     title = strip_tags.sub("", raw_title).strip()
     papers[norm(title)] = {"title": title, "citations": int(cites or 0)}
 
-# profile-level stats: first two gsc_rsb_std cells are total citations (all / recent)
+# profile-level stats: gsc_rsb_std cells come in (all, recent) pairs —
+# citations, h-index, i10-index
 stds = re.findall(r'class="gsc_rsb_std">(\d+)</td>', html)
+
+# citations-per-year histogram: year labels are gsc_g_t; each bar is a gsc_g_a whose
+# z-index counts back from the latest year (1 = last label). Years with no
+# citations have no bar, so they default to 0.
+years = [int(y) for y in re.findall(r'<span class="gsc_g_t"[^>]*>(\d{4})</span>', html)]
+cites_per_year = {str(y): 0 for y in years}
+for z, n in re.findall(r'class="gsc_g_a"[^>]*z-index:(\d+)[^>]*><span class="gsc_g_al">(\d+)</span>', html):
+    idx = len(years) - int(z)
+    if 0 <= idx < len(years):
+        cites_per_year[str(years[idx])] = int(n)
 
 data = {
     "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     "scholar_id": SCHOLAR_ID,
     "total_citations": int(stds[0]) if stds else 0,
     "h_index": int(stds[2]) if len(stds) > 2 else 0,
+    "i10_index": int(stds[4]) if len(stds) > 4 else 0,
+    "cites_per_year": cites_per_year,
     "papers": papers,
 }
 
