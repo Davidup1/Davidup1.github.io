@@ -9,6 +9,7 @@
 #   page             论文主页链接,指向本站 ./papers/<论文名>/ 子页面(可选)
 #   bibtex           BibTeX 链接(可选)
 #   image            题图(teaser),放在 ./assets/img/ 下(可选)
+#   short            简称,新版主页(v2)用作大标题;不填则取标题冒号前的部分(可选)
 #   notes            高亮备注,如 Oral / Spotlight / Best Paper(可选)
 #   s2id             Semantic Scholar 论文 ID,用于自动显示引用量(可选)
 #                    可以填 arXiv:<id>、DOI:<doi> 或 S2 的 paperId
@@ -53,6 +54,7 @@ main:
     s2id: abc348a0fb73bfec74cbc41b00d3d721e80319e6
 
   - title: "Continuous Multi-Task Pre-Training for Malicious URL Detection and Webpage Classification"
+    short: URLBERT
     authors: <strong>Yujie Li</strong>, Yiwei Liu, Peiyue Li, Yifan Jia, Yanbin Wang
     conference_short: CN
     conference: <strong>Computer Networks</strong> (CCF-B, IF 4.6), 2025.

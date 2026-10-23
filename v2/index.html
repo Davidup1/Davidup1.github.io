@@ -1,0 +1,273 @@
+---
+layout: null
+permalink: /v2/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }} · Multimodal LLMs &amp; Temporal Vision</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="keywords" content="{{ site.keywords }}">
+  <meta name="theme-color" content="#0C0C0B">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://davidup1.github.io/v2/">
+  <meta property="og:title" content="{{ site.title }} · Multimodal LLMs & Temporal Vision">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://davidup1.github.io/v2/">
+  <link rel="icon" href="{{ site.favicon_dark | remove_first: '.' }}" type="image/png">
+
+  <link rel="preload" href="/assets/v2/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/v2/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/v2/v2.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor is-hidden" aria-hidden="true"><span class="cursor__label"></span></div>
+  <div class="preview" aria-hidden="true"><div class="preview__inner"></div></div>
+
+  <!-- ============ Header ============ -->
+  <header class="nav">
+    <a class="nav__logo" href="#top" aria-label="Back to top">YL<span class="accent">.</span></a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#about"><span class="mono">01</span>About</a>
+      <a href="#work"><span class="mono">02</span>Work</a>
+      <a href="#news"><span class="mono">03</span>News</a>
+      <a href="#experience"><span class="mono">04</span>Experience</a>
+      <a href="#honors"><span class="mono">05</span>Honors</a>
+      <a href="#contact"><span class="mono">06</span>Contact</a>
+    </nav>
+    <div class="nav__meta mono">
+      <span class="nav__clock" aria-label="Local time in Beijing"><span class="dot"></span>BJS <time id="clock">--:--:--</time></span>
+      <a class="nav__classic" href="/">Classic ↗</a>
+      <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <nav aria-label="Sections">
+      <a href="#about"><span class="mono">01</span>About</a>
+      <a href="#work"><span class="mono">02</span>Work</a>
+      <a href="#news"><span class="mono">03</span>News</a>
+      <a href="#experience"><span class="mono">04</span>Experience</a>
+      <a href="#honors"><span class="mono">05</span>Honors</a>
+      <a href="#contact"><span class="mono">06</span>Contact</a>
+    </nav>
+    <a class="menu__classic mono" href="/">Classic version ↗</a>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top">
+      <div class="hero__top mono">
+        <span>Academic Portfolio</span>
+        <span class="hide-sm">Beijing, China</span>
+        <span>Ed. {{ site.time | date: "%Y" }}</span>
+      </div>
+
+      <p class="hero__tagline">Building multimodal models that <em>see</em>, <em>remember</em> and <em>reason</em> through time.</p>
+
+      <h1 class="hero__name" aria-label="{{ site.title }}">
+        <span class="hero__line" data-fit>YUJIE&nbsp;LI</span>
+      </h1>
+
+      <div class="hero__grid">
+        <div class="hero__cell">
+          <span class="label mono">(Role)</span>
+          <p>M.S. Student at <a class="ulink" href="https://sklnst.bupt.edu.cn/" rel="noopener">SKLNST, BUPT</a>, advised by <a class="ulink" href="http://wenjia.ruantang.top/" rel="noopener">Prof. Wenjia Xu</a></p>
+        </div>
+        <div class="hero__cell">
+          <span class="label mono">(Now)</span>
+          <p>Research Intern, Foundation Model Team at <span class="nowrap"><img class="inline-logo" src="/assets/img/logos/kuaishou.svg" alt="">Kuaishou</span></p>
+        </div>
+        <div class="hero__cell">
+          <span class="label mono">(Focus)</span>
+          <p>Multimodal large language models, temporal &amp; remote sensing vision</p>
+        </div>
+        <div class="hero__cell hero__cell--stats" data-stats hidden>
+          <span class="label mono">(Scholar)</span>
+          <p><span class="stat" data-stat="citations">0</span> citations <span class="sep">/</span> h-index <span class="stat" data-stat="h">0</span></p>
+        </div>
+      </div>
+
+      <div class="hero__bottom">
+        <ul class="social mono" aria-label="Links">
+          <li><a href="mailto:{{ site.email }}" data-cursor="Write">Email</a></li>
+          <li><a href="{{ site.google_scholar }}" rel="noopener" data-cursor="Open">Scholar</a></li>
+          <li><a href="{{ site.github_link }}" rel="noopener" data-cursor="Open">GitHub</a></li>
+          <li><a href="{{ site.huggingface }}" rel="noopener" data-cursor="Open">Hugging Face</a></li>
+          {% if site.cv_link %}<li><a href="/{{ site.cv_link }}" data-cursor="Open">CV</a></li>{% endif %}
+        </ul>
+        <a class="scroll-cue mono" href="#about">Scroll <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section class="section about" id="about">
+      <header class="section__head">
+        <span class="mono">01</span><h2>About</h2><span class="mono hide-sm">Who I am</span>
+      </header>
+      <p class="statement" data-words>
+        I&rsquo;m Yujie, a master&rsquo;s student at BUPT&rsquo;s State Key Laboratory of Networking and Switching Technology and a research intern on Kuaishou&rsquo;s Foundation Model Team. I build multimodal models that <em>understand change over time</em>, from decade-long satellite image series to long-term memory in large language models.
+      </p>
+
+      <div class="interests">
+        <a class="interest" href="#work" data-cursor="Papers">
+          <span class="interest__idx mono">I.</span>
+          <span class="interest__title">Multimodal LLMs</span>
+          <span class="interest__tags">Long-term memory · Visual question answering</span>
+          <span class="interest__arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="interest" href="#work" data-cursor="Papers">
+          <span class="interest__idx mono">II.</span>
+          <span class="interest__title">Temporal Vision</span>
+          <span class="interest__tags">Multi-temporal interpretation · Change captioning · Remote sensing</span>
+          <span class="interest__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ Marquee ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        {% for i in (1..2) %}<span>Multimodal LLMs <i>✦</i> Temporal Reasoning <i>✦</i> Change Captioning <i>✦</i> Long-term Memory <i>✦</i> Vision&#8209;Language <i>✦</i>&nbsp;</span>{% endfor %}
+      </div>
+    </div>
+
+    <!-- ============ Work ============ -->
+    <section class="section work" id="work">
+      <header class="section__head">
+        <span class="mono">02</span><h2>Selected Work</h2><span class="mono">({{ site.data.publications.main | size | prepend: '0' | slice: -2, 2 }})</span>
+      </header>
+
+      <ol class="pubs">
+        {% for p in site.data.publications.main %}
+        {% if p.short %}{% assign title_parts = p.title | split: '|||' | unshift: p.short %}{% else %}{% assign title_parts = p.title | split: ': ' %}{% endif %}
+        {% assign year = p.conference | strip_html | split: ', ' | last | remove: '.' | strip %}
+        {% if p.page %}{% assign main_link = p.page %}{% else %}{% assign main_link = p.pdf %}{% endif %}
+        {% assign main_link = main_link | replace_first: './', '/' %}
+        <li class="pub reveal" data-img="{{ p.image | replace_first: './', '/' }}">
+          <span class="pub__idx mono">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <div class="pub__body">
+            {% if p.image %}<img class="pub__thumb" src="{{ p.image | replace_first: './', '/' }}" alt="" loading="lazy">{% endif %}
+            <h3 class="pub__title">
+              <a href="{{ main_link }}" {% unless main_link contains 'papers/' %}rel="noopener"{% endunless %} data-cursor="Read">
+                {% if title_parts.size > 1 %}<span class="pub__short">{{ title_parts[0] }}</span><span class="pub__sub">{{ title_parts | shift | join: ': ' }}</span>
+                {% else %}<span class="pub__short pub__short--long">{{ p.title }}</span>{% endif %}
+              </a>
+            </h3>
+            <p class="pub__authors">{{ p.authors }}</p>
+            <div class="pub__links mono">
+              {% if p.pdf %}<a href="{{ p.pdf }}" rel="noopener">Paper ↗</a>{% endif %}
+              {% if p.code %}<a href="{{ p.code }}" rel="noopener">Code ↗</a>{% endif %}
+              {% if p.page %}<a href="{{ p.page | replace_first: './', '/' }}">Project ↗</a>{% endif %}
+              {% if p.bibtex %}<a href="{{ p.bibtex }}" rel="noopener">BibTeX ↗</a>{% endif %}
+              <a class="pub__cite" href="{{ site.google_scholar }}" rel="noopener" data-gstitle="{{ p.title | escape }}" {% if p.s2id %}data-s2id="{{ p.s2id }}"{% endif %} hidden></a>
+            </div>
+          </div>
+          <div class="pub__venue">
+            <span class="pub__badge mono">{{ p.conference_short }}</span>
+            <span class="pub__year mono">{{ year }}</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+
+    <!-- ============ News ============ -->
+    <section class="section news" id="news">
+      <header class="section__head">
+        <span class="mono">03</span><h2>News</h2><span class="mono hide-sm">Latest updates</span>
+      </header>
+      <ul class="news__list" data-news>
+        {% for n in site.data.news %}
+        <li class="news__item reveal{% if forloop.index > 5 %} is-extra{% endif %}">
+          <time class="mono">{{ n.date }}</time>
+          <p>{{ n.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if site.data.news.size > 5 %}
+      <button class="btn mono" type="button" data-news-toggle aria-expanded="false">
+        <span data-when="closed">View all ({{ site.data.news.size }})</span><span data-when="open">Show less</span>
+      </button>
+      {% endif %}
+    </section>
+
+    <!-- ============ Experience ============ -->
+    <section class="section experience" id="experience">
+      <header class="section__head">
+        <span class="mono">04</span><h2>Experience</h2><span class="mono hide-sm">Education &amp; industry</span>
+      </header>
+      <ul class="exp">
+        {% for e in site.data.experience %}
+        <li class="exp__item reveal">
+          <span class="exp__logo"><img src="{{ e.logo }}" alt="{{ e.org }} logo" loading="lazy"></span>
+          <div class="exp__body">
+            <h3>{{ e.role }}</h3>
+            <p class="exp__org">{{ e.org }}</p>
+            {% if e.detail %}<p class="exp__detail">{{ e.detail }}</p>{% endif %}
+          </div>
+          <div class="exp__period mono">
+            {% if e.current %}<span class="now"><span class="dot"></span>Now</span>{% endif %}
+            <span>{{ e.period }}</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <!-- ============ Honors & Service ============ -->
+    <section class="section honors" id="honors">
+      <header class="section__head">
+        <span class="mono">05</span><h2>Honors &amp; Service</h2><span class="mono hide-sm">Recognition</span>
+      </header>
+      <div class="honors__grid">
+        <div>
+          <h3 class="label mono">(Honors &amp; Awards)</h3>
+          <ul class="rows">
+            {% for a in site.data.honors.awards %}
+            <li class="reveal"><time class="mono">{{ a.date }}</time><span>{{ a.title }}<small>{{ a.org }}</small></span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          <h3 class="label mono">(Academic Service)</h3>
+          <ul class="rows">
+            {% for s in site.data.honors.services %}
+            <li class="reveal"><time class="mono">{{ s.year }}</time><span>{{ s.role }}, {{ s.short }}<small>{{ s.venue }}</small></span></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Contact ============ -->
+  <footer class="contact" id="contact">
+    <span class="label mono">(06) Contact</span>
+    <p class="contact__lead">Open to research collaboration and conversations about multimodal models.</p>
+    <button class="contact__big" type="button" data-copy="{{ site.email }}" data-cursor="Copy">
+      <span class="contact__say" data-fit-width>Let&rsquo;s connect</span>
+      <span class="contact__mail mono">{{ site.email }}</span>
+    </button>
+    <p class="toast mono" role="status" aria-live="polite"></p>
+
+    <div class="contact__bar mono">
+      <span>© {{ site.time | date: "%Y" }} Yujie Li</span>
+      <span id="busuanzi_container_site_pv" style="display:none">Visits <span id="busuanzi_value_site_pv"></span></span>
+      <a href="/">Classic version ↗</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>window.GS_STATS_URL = "{{ site.google_scholar_stats }}";</script>
+  <script src="/assets/v2/v2.js" defer></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

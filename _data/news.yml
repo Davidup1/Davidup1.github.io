@@ -1,0 +1,36 @@
+# News(按时间倒序)。旧版主页(index.md)和新版主页(v2/)共用这份数据。
+# 字段说明:
+#   date   显示的日期,如 "Aug. 2026"
+#   text   正文,支持 Markdown 链接与 <em> 等行内 HTML
+#   emoji  结尾的表情(可选,仅旧版主页显示)
+
+- date: Aug. 2026
+  text: 'I joined the Foundation Model Team at <img src="/assets/img/logos/kuaishou.svg" alt="" style="height: 1em; vertical-align: -0.12em; margin-right: 0.15em;">Kuaishou as a research intern.'
+  emoji: 💼
+
+- date: Jul. 2026
+  text: "Two papers accepted to ACM MM 2026: <em>[GeoChrono](/papers/geochrono/)</em> on long-term temporal understanding in remote sensing, and <em>[Self in Space](https://choucisan.github.io/publications/self-in-space/)</em> on self-awareness and spatial cognition in UAV embodied intelligence."
+  emoji: 🎉
+
+- date: Apr. 2026
+  text: Our paper <em>[Graph-RHO](https://arxiv.org/abs/2604.10073)</em> on flexible job-shop scheduling is accepted to IJCNN 2026.
+  emoji: 🎉
+
+- date: Sep. 2025
+  text: Our paper <em>[BTCChat](https://ieeexplore.ieee.org/abstract/document/11463503)</em> on bi-temporal change captioning is accepted to ICASSP 2026.
+  emoji: 🎉
+
+- date: Sep. 2025
+  text: I started my M.S. at the State Key Laboratory of Networking and Switching Technology, BUPT.
+  emoji: 💪
+
+- date: Jul. 2025
+  text: Our paper on [malicious URL detection](https://www.sciencedirect.com/science/article/abs/pii/S1389128625004803) is published in <em>Computer Networks</em>.
+  emoji: 🎉
+
+- date: Jun. 2025
+  text: I received my B.E. degree from BUPT.
+  emoji: 🎓
+
+- date: Dec. 2024
+  text: We release <em>[UniRS](https://arxiv.org/abs/2412.20742)</em>, a vision-language model unifying multi-temporal remote sensing tasks, on arXiv.

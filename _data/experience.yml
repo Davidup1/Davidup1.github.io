@@ -1,0 +1,27 @@
+# 经历时间线(新版主页 v2/ 使用),按时间倒序。
+#   org     机构名
+#   logo    机构 Logo,放在 /assets/img/logos/ 下
+#   role    身份
+#   detail  补充说明(可选)
+#   period  起止时间
+#   current 正在进行时设为 true,会显示 "Now" 标记(可选)
+
+- org: Kuaishou
+  logo: /assets/img/logos/kuaishou.svg
+  role: Research Intern
+  detail: Foundation Model Team
+  period: Aug. 2026 – Present
+  current: true
+
+- org: Beijing University of Posts and Telecommunications
+  logo: /assets/img/logos/bupt.png
+  role: M.S. Student
+  detail: State Key Laboratory of Networking and Switching Technology, advised by Prof. Wenjia Xu
+  period: Sep. 2025 – Present
+  current: true
+
+- org: Beijing University of Posts and Telecommunications
+  logo: /assets/img/logos/bupt.png
+  role: B.E. in Information and Communication Engineering
+  detail: School of Information and Communication Engineering
+  period: Sep. 2021 – Jun. 2025

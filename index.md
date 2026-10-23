@@ -15,15 +15,8 @@ My research focuses on intelligent interpretation of remote sensing imagery and 
 
 ## News
 
-- **[Aug. 2026]** I joined the Foundation Model Team at <img src="./assets/img/logos/kuaishou.svg" alt="" style="height: 1em; vertical-align: -0.12em; margin-right: 0.15em;">Kuaishou as a research intern. 💼
-- **[Jul. 2026]** Two papers accepted to ACM MM 2026: <em>[GeoChrono](./papers/geochrono/)</em> on long-term temporal understanding in remote sensing, and <em>[Self in Space](https://choucisan.github.io/publications/self-in-space/)</em> on self-awareness and spatial cognition in UAV embodied intelligence. 🎉
-- **[Apr. 2026]** Our paper <em>[Graph-RHO](https://arxiv.org/abs/2604.10073)</em> on flexible job-shop scheduling is accepted to IJCNN 2026. 🎉
-- **[Sep. 2025]** Our paper <em>[BTCChat](https://ieeexplore.ieee.org/abstract/document/11463503)</em> on bi-temporal change captioning is accepted to ICASSP 2026. 🎉
-- **[Sep. 2025]** I started my M.S. at the State Key Laboratory of Networking and Switching Technology, BUPT. 💪
-- **[Jul. 2025]** Our paper on [malicious URL detection](https://www.sciencedirect.com/science/article/abs/pii/S1389128625004803) is published in <em>Computer Networks</em>. 🎉
-- **[Jun. 2025]** I received my B.E. degree from BUPT. 🎓
-- **[Dec. 2024]** We release <em>[UniRS](https://arxiv.org/abs/2412.20742)</em>, a vision-language model unifying multi-temporal remote sensing tasks, on arXiv.
-
+{% for n in site.data.news %}- **[{{ n.date }}]** {{ n.text }}{% if n.emoji %} {{ n.emoji }}{% endif %}
+{% endfor %}
 {% include_relative _includes/publications.md %}
 
 {% include_relative _includes/awards.md %}

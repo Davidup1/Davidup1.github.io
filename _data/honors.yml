@@ -1,0 +1,29 @@
+# 奖项与学术服务。旧版主页(_includes/awards.md、services.md)和新版主页(v2/)共用这份数据。
+
+awards:
+  - date: Oct. 2026
+    title: First-Class Graduate Academic Scholarship
+    org: Beijing University of Posts and Telecommunications
+  - date: Oct. 2025
+    title: Graduate Freshman Scholarship
+    org: Beijing University of Posts and Telecommunications
+  - date: Oct. 2024
+    title: Second-Class Scholarship
+    org: Beijing University of Posts and Telecommunications
+  - date: Oct. 2023
+    title: Third-Class Scholarship
+    org: Beijing University of Posts and Telecommunications
+  - date: Oct. 2022
+    title: First-Class Scholarship
+    org: Beijing University of Posts and Telecommunications
+
+# 审稿服务,按时间倒序
+services:
+  - role: Conference Reviewer
+    venue: IEEE International Conference on Acoustics, Speech and Signal Processing
+    short: ICASSP
+    year: 2027
+  - role: Conference Reviewer
+    venue: ACM International Conference on Multimedia
+    short: ACM MM
+    year: 2026
