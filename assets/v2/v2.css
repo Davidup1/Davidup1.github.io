@@ -139,8 +139,7 @@ ul, ol { list-style: none; }
   padding: 18px var(--gutter);
   mix-blend-mode: difference; color: #fff;
 }
-.nav__logo { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
-.nav__logo .accent { color: #fff; }
+.nav__logo { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; white-space: nowrap; }
 .nav__links { display: flex; gap: clamp(14px, 2vw, 30px); font-size: 14px; }
 .nav__links a { position: relative; display: inline-flex; gap: 6px; align-items: baseline; opacity: 0.6; transition: opacity 0.3s; }
 .nav__links a .mono { font-size: 10px; }
