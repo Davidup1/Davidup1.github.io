@@ -19,3 +19,8 @@
   name: Terminal
   url: /terminal/
   desc: Command line, ⌘K palette
+
+- id: bento
+  name: Bento
+  url: /bento/
+  desc: Card grid, light & dark

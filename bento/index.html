@@ -1,0 +1,198 @@
+---
+layout: null
+permalink: /bento/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }} · Bento</title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="keywords" content="{{ site.keywords }}">
+  <link rel="canonical" href="https://davidup1.github.io/bento/">
+  <link rel="icon" media="(prefers-color-scheme:dark)" href="{{ site.favicon_dark | remove_first: '.' }}" type="image/png">
+  <link rel="icon" media="(prefers-color-scheme:light)" href="{{ site.favicon | remove_first: '.' }}" type="image/png">
+  <link rel="preload" href="/assets/v2/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    // Apply a saved theme before first paint; without one the page follows the system.
+    (function () {
+      document.documentElement.classList.add("js");
+      try { var t = localStorage.getItem("bento-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/bento/bento.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <a class="top__name" href="#main">Yujie Li</a>
+    <nav class="top__nav" aria-label="Sections">
+      <a href="#publications">Publications</a>
+      <a href="#news-card">News</a>
+      <a href="#contact-card">Contact</a>
+    </nav>
+    <div class="top__tools">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+      {% include version-switcher.html current="bento" inline=true class="top__vs" %}
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ================= Bento ================= -->
+    <section class="bento" aria-label="Overview">
+
+      <article class="card card--intro" style="--d:0">
+        <p class="eyebrow"><span class="dot"></span>Academic homepage</p>
+        <h1 class="intro__name">Yujie Li</h1>
+        <p class="intro__lead">M.S. student at <a href="https://sklnst.bupt.edu.cn/" rel="noopener">SKLNST, BUPT</a>, advised by <a href="http://wenjia.ruantang.top/" rel="noopener">Prof. Wenjia Xu</a>. I build multimodal models that <em>understand change over time</em>, from decade-long satellite image series to long-term memory in large language models.</p>
+        <div class="intro__links">
+          <a class="pill pill--solid" href="mailto:{{ site.email }}">Email</a>
+          <a class="pill" href="{{ site.google_scholar }}" rel="noopener">Scholar</a>
+          <a class="pill" href="{{ site.github_link }}" rel="noopener">GitHub</a>
+          <a class="pill" href="{{ site.huggingface }}" rel="noopener">Hugging Face</a>
+          {% if site.cv_link %}<a class="pill" href="/{{ site.cv_link }}">CV</a>{% endif %}
+        </div>
+      </article>
+
+      <article class="card card--now" style="--d:1">
+        <p class="eyebrow"><span class="dot dot--live"></span>Now</p>
+        <img class="now__logo" src="/assets/img/logos/kuaishou.svg" alt="Kuaishou logo">
+        <div class="now__body">
+          <h2>Research Intern</h2>
+          <p>Foundation Model Team<br>Kuaishou · since Aug. 2026</p>
+        </div>
+      </article>
+
+      <article class="card card--stats" style="--d:2" data-stats>
+        <p class="eyebrow">Google Scholar</p>
+        <div class="stats">
+          <div><span class="big" data-stat="total">—</span><span class="cap">citations</span></div>
+          <div><span class="big" data-stat="h">—</span><span class="cap">h-index</span></div>
+        </div>
+      </article>
+
+      <article class="card card--clock" style="--d:3">
+        <p class="eyebrow">Local time</p>
+        <p class="clock"><time id="clock">--:--</time></p>
+        <p class="cap">Beijing · CST (UTC+8)</p>
+      </article>
+
+      {% for p in site.data.publications.main limit: 2 %}
+      {% if p.short %}{% assign short = p.short %}{% else %}{% assign short = p.title | split: ': ' | first %}{% endif %}
+      {% if p.page %}{% assign main_link = p.page | replace_first: './', '/' %}{% else %}{% assign main_link = p.pdf %}{% endif %}
+      <a class="card card--feat card--f{{ forloop.index }}" href="{{ main_link }}" style="--d:{{ forloop.index | plus: 3 }}"{% unless main_link contains '/papers/' %} rel="noopener"{% endunless %}>
+        <p class="eyebrow">Featured · {{ p.conference_short }} {{ p.conference | strip_html | split: ', ' | last | remove: '.' | strip }}</p>
+        <div class="feat__img"><img src="{{ p.image | replace_first: './', '/' }}" alt="" loading="lazy"></div>
+        <h2 class="feat__title">{{ short }}</h2>
+        <p class="feat__sub">{{ p.title | remove_first: short | remove_first: ': ' }}</p>
+        <span class="feat__go" aria-hidden="true">↗</span>
+      </a>
+      {% endfor %}
+
+      <article class="card card--news" id="news-card" style="--d:6">
+        <div class="card__head"><p class="eyebrow">News</p>{% if site.data.news.size > 4 %}<button class="link-btn" type="button" data-news-toggle aria-expanded="false"><span data-when="closed">All {{ site.data.news.size }}</span><span data-when="open">Less</span></button>{% endif %}</div>
+        <ul class="news">
+          {% for n in site.data.news %}
+          <li{% if forloop.index > 4 %} class="is-extra"{% endif %}><time>{{ n.date }}</time><p>{{ n.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p></li>
+          {% endfor %}
+        </ul>
+      </article>
+
+      <article class="card card--focus" style="--d:7">
+        <p class="eyebrow">Research focus</p>
+        <ul class="chips">
+          <li class="chip chip--key">Multimodal LLMs</li>
+          <li class="chip">Long-term memory</li>
+          <li class="chip">Visual QA</li>
+          <li class="chip chip--key">Temporal vision</li>
+          <li class="chip">Change captioning</li>
+          <li class="chip">Remote sensing</li>
+        </ul>
+      </article>
+
+      <article class="card card--mail" id="contact-card" style="--d:8">
+        <p class="eyebrow">Get in touch</p>
+        <button class="mail" type="button" data-copy="{{ site.email }}">
+          <span class="mail__addr">{{ site.email }}</span>
+          <span class="mail__act" data-copy-label>Copy</span>
+        </button>
+        <p class="cap">Open to research collaboration.</p>
+      </article>
+
+      <article class="card card--exp" style="--d:9">
+        <p class="eyebrow">Experience</p>
+        <ol class="timeline">
+          {% for e in site.data.experience %}
+          <li>
+            <span class="tl__logo"><img src="{{ e.logo }}" alt="" loading="lazy"></span>
+            <div>
+              <h3>{{ e.role }}{% if e.current %} <span class="badge">Now</span>{% endif %}</h3>
+              <p>{{ e.org }}</p>
+              <p class="cap">{{ e.period }}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </article>
+
+      <article class="card card--honors" style="--d:10">
+        <p class="eyebrow">Honors &amp; service</p>
+        <ul class="honors">
+          {% for a in site.data.honors.awards %}
+          <li><span>{{ a.title }}</span><time>{{ a.date }}</time></li>
+          {% endfor %}
+        </ul>
+        <ul class="honors honors--svc">
+          {% for s in site.data.honors.services %}
+          <li><span>Reviewer, {{ s.short }}</span><time>{{ s.year }}</time></li>
+          {% endfor %}
+        </ul>
+      </article>
+    </section>
+
+    <!-- ================= Publications ================= -->
+    <section class="pubs" id="publications">
+      <div class="pubs__head">
+        <h2>Publications</h2>
+        <p class="cap">{{ site.data.publications.main | size }} papers · citations from Google Scholar</p>
+      </div>
+      <div class="pubs__grid">
+        {% for p in site.data.publications.main %}
+        {% if p.short %}{% assign short = p.short %}{% else %}{% assign short = p.title | split: ': ' | first %}{% endif %}
+        {% assign year = p.conference | strip_html | split: ', ' | last | remove: '.' | strip %}
+        <article class="card pub">
+          {% if p.image %}<div class="pub__img"><img src="{{ p.image | replace_first: './', '/' }}" alt="" loading="lazy"></div>{% endif %}
+          <div class="pub__meta"><span class="badge">{{ p.conference_short }}</span><span class="cap">{{ year }}</span><span class="pub__cite" data-gstitle="{{ p.title | escape }}"{% if p.s2id %} data-s2id="{{ p.s2id }}"{% endif %}></span></div>
+          <h3 class="pub__title">{{ p.title }}</h3>
+          <p class="pub__authors">{{ p.authors }}</p>
+          <div class="pub__links">
+            {% if p.pdf %}<a href="{{ p.pdf }}" rel="noopener">Paper</a>{% endif %}
+            {% if p.code %}<a href="{{ p.code }}" rel="noopener">Code</a>{% endif %}
+            {% if p.page %}<a href="{{ p.page | replace_first: './', '/' }}">Project</a>{% endif %}
+            {% if p.bibtex %}<a href="{{ p.bibtex }}" rel="noopener">BibTeX</a>{% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© {{ site.time | date: "%Y" }} Yujie Li</span>
+    <span id="busuanzi_container_site_pv" style="display:none"><span id="busuanzi_value_site_pv"></span> visits</span>
+    <span>Updated {{ site.time | date: "%b %Y" }}</span>
+  </footer>
+
+  <p class="toast" role="status" aria-live="polite"></p>
+
+  <script>window.BENTO = { gs: {{ site.google_scholar_stats | jsonify }} };</script>
+  <script src="/assets/js/scholar-stats.js" defer></script>
+  <script src="/assets/bento/bento.js" defer></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
