@@ -162,7 +162,11 @@ ul, ol { list-style: none; }
 .menu nav { display: flex; flex-direction: column; gap: 6px; }
 .menu nav a { font-family: var(--display); font-weight: 700; font-stretch: 80%; font-size: clamp(40px, 12vw, 72px); line-height: 1; text-transform: uppercase; display: flex; gap: 14px; align-items: baseline; }
 .menu nav a .mono { color: var(--fg-faint); }
-.menu__classic { color: var(--fg-dim); }
+.menu__versions { display: flex; flex-wrap: wrap; gap: 10px 24px; color: var(--fg-dim); }
+/* The version dropdown must not be colour-inverted by the nav's blend mode */
+.nav:has(.vs.is-open) { mix-blend-mode: normal; }
+.nav__classic .vs__btn { cursor: pointer; }
+.nav__classic.is-open { opacity: 1; }
 
 /* ---------------- Hero ---------------- */
 .hero {

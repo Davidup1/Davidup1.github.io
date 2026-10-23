@@ -1,0 +1,91 @@
+{%- comment -%}
+  Version switcher shared by every homepage version.
+  Usage: {% include version-switcher.html current="kinetic" %}
+    current   id from _data/versions.yml of the page that includes it
+    inline    true → a button that sits in the host's nav and inherits its font/colour,
+              otherwise a floating pill in the bottom-right corner
+    label     button text (default "Versions")
+    class     extra class on the root, so a host page can style the button
+{%- endcomment -%}
+{%- assign vs_id = include.current | append: '-' | append: include.label | slugify -%}
+<div class="vs{% if include.inline %} vs--inline{% else %} vs--floating{% endif %}{% if include.class %} {{ include.class }}{% endif %}" data-vs>
+  <button class="vs__btn" type="button" aria-expanded="false" aria-controls="vs-menu-{{ vs_id }}" aria-haspopup="true">
+    <span class="vs__label">{{ include.label | default: "Versions" }}</span><svg class="vs__chev" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="vs__menu" id="vs-menu-{{ vs_id }}" hidden>
+    <p class="vs__title">Switch version</p>
+    <ul>
+      {%- for v in site.data.versions %}
+      <li><a href="{{ v.url }}"{% if v.id == include.current %} aria-current="page"{% endif %}>
+        <span class="vs__name">{{ v.name }}</span><span class="vs__desc">{{ v.desc }}</span>
+      </a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div>
+{%- unless vs_assets_loaded %}{% assign vs_assets_loaded = true %}
+<style>
+  .vs { position: relative; display: inline-block; font-family: inherit; z-index: 1000; }
+  .vs__btn {
+    display: inline-flex; align-items: center; gap: 0.45em; cursor: pointer;
+    font: inherit; color: inherit; background: none; border: 0; padding: 0; letter-spacing: inherit; text-transform: inherit;
+  }
+  .vs__chev { transition: transform 0.25s; }
+  .vs.is-open .vs__chev { transform: rotate(180deg); }
+  .vs__menu {
+    position: absolute; right: 0; top: calc(100% + 12px); width: 260px; padding: 8px; margin: 0;
+    background: rgba(22, 22, 21, 0.92); color: #EDEAE2; border: 1px solid rgba(237, 234, 226, 0.14); border-radius: 14px;
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    font: 400 14px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: normal; text-transform: none; text-align: left;
+  }
+  .vs__menu[hidden] { display: none; }
+  .vs__title { margin: 4px 10px 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8E8A80; }
+  /* Reset host-page list/link styles (e.g. the classic theme styles every header ul/li/a) */
+  .vs .vs__menu ul { list-style: none; margin: 0; padding: 0; width: auto; height: auto; background: none; border: 0; border-radius: 0; }
+  .vs .vs__menu li { float: none; width: auto; height: auto; border: 0; margin: 0; padding: 0; }
+  .vs .vs__menu a {
+    display: grid; grid-template-columns: 1fr; gap: 1px; padding: 9px 10px 9px 26px; border-radius: 9px; height: auto;
+    font-size: 14px; line-height: 1.35; text-align: left;
+    color: #EDEAE2 !important; text-decoration: none !important; position: relative; background: none !important;
+  }
+  .vs .vs__menu a:hover, .vs .vs__menu a:focus-visible { background: rgba(237, 234, 226, 0.08) !important; outline: none; }
+  .vs__menu a[aria-current]::before { content: ""; position: absolute; left: 11px; top: 15px; width: 6px; height: 6px; border-radius: 50%; background: #A6F0C0; }
+  .vs__name { font-weight: 600; }
+  .vs__desc { font-size: 12px; color: #A39F94; }
+  .vs--floating { position: fixed; right: 16px; bottom: 16px; }
+  .vs--floating .vs__btn {
+    padding: 9px 14px; border-radius: 999px; font: 500 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: #EDEAE2; background: rgba(22, 22, 21, 0.82); border: 1px solid rgba(237, 234, 226, 0.16);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  }
+  .vs--floating .vs__menu { top: auto; bottom: calc(100% + 10px); }
+  @media (max-width: 480px) { .vs__menu { width: min(260px, calc(100vw - 32px)); } }
+</style>
+<script>
+  (function () {
+    function setup(root) {
+      var btn = root.querySelector(".vs__btn"), menu = root.querySelector(".vs__menu");
+      function set(open) {
+        menu.hidden = !open; root.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", String(open));
+        if (open) { var cur = menu.querySelector("[aria-current]") || menu.querySelector("a"); if (cur) cur.focus({ preventScroll: true }); }
+      }
+      btn.addEventListener("click", function (e) { e.stopPropagation(); set(menu.hidden); });
+      document.addEventListener("click", function (e) { if (!root.contains(e.target)) set(false); });
+      root.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !menu.hidden) { set(false); btn.focus(); }
+        if ((e.key === "ArrowDown" || e.key === "ArrowUp") && !menu.hidden) {
+          var links = Array.prototype.slice.call(menu.querySelectorAll("a"));
+          var i = links.indexOf(document.activeElement);
+          links[(i + (e.key === "ArrowDown" ? 1 : -1) + links.length) % links.length].focus();
+          e.preventDefault();
+        }
+      });
+    }
+    function init() { Array.prototype.forEach.call(document.querySelectorAll("[data-vs]:not([data-vs-ready])"), function (r) { r.setAttribute("data-vs-ready", ""); setup(r); }); }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+  })();
+</script>
+{%- endunless %}

@@ -629,10 +629,10 @@ footer {
   color: #3A5A48;
   transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
-.v2-entry span { display: inline-block; transition: transform 0.25s; }
-.v2-entry:hover { background-color: #3A5A48; border-color: #3A5A48; color: #FAF9F5; text-decoration: none; }
-.v2-entry:hover span { transform: translateX(3px); }
+.v2-entry .vs__btn { font-family: inherit; }
+.v2-entry:hover, .v2-entry.is-open { background-color: #3A5A48; border-color: #3A5A48; color: #FAF9F5; text-decoration: none; }
+.v2-entry .vs__menu { left: 50%; right: auto; transform: translateX(-50%); }
 @media (prefers-color-scheme: dark) {
   .v2-entry { border-color: #4A5A4F; color: #B7CEBF; }
-  .v2-entry:hover { background-color: #B7CEBF; border-color: #B7CEBF; color: #262624; }
+  .v2-entry:hover, .v2-entry.is-open { background-color: #B7CEBF; border-color: #B7CEBF; color: #262624; }
 }

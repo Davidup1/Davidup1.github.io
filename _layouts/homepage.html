@@ -94,7 +94,7 @@
         </a>
         {% endif %}
         </div>
-        <a class="v2-entry" href="/v2/">Try the new version <span aria-hidden="true">→</span></a>
+        {% include version-switcher.html current="classic" inline=true label="Try other versions" class="v2-entry" %}
         <br>
 
       </header>

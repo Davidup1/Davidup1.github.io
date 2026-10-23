@@ -43,7 +43,7 @@ permalink: /v2/
     </nav>
     <div class="nav__meta mono">
       <span class="nav__clock" aria-label="Local time in Beijing"><span class="dot"></span>BJS <time id="clock">--:--:--</time></span>
-      <a class="nav__classic" href="/">Classic ↗</a>
+      {% include version-switcher.html current="kinetic" inline=true class="nav__classic" %}
       <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </header>
@@ -57,7 +57,9 @@ permalink: /v2/
       <a href="#honors"><span class="mono">05</span>Honors</a>
       <a href="#contact"><span class="mono">06</span>Contact</a>
     </nav>
-    <a class="menu__classic mono" href="/">Classic version ↗</a>
+    <ul class="menu__versions mono" aria-label="Other versions">
+      {% for v in site.data.versions %}{% unless v.id == "kinetic" %}<li><a href="{{ v.url }}">{{ v.name }} version ↗</a></li>{% endunless %}{% endfor %}
+    </ul>
   </div>
 
   <main id="main">

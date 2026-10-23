@@ -1,0 +1,21 @@
+# 主页的各个版本,所有页面上的「版本切换器」都从这里读取。
+# 新增一个版本时在这里加一行即可。
+#   id    版本标识,页面引入切换器时用 current="<id>" 标明自己
+#   name  显示名称
+#   url   页面地址
+#   desc  一句话描述
+
+- id: classic
+  name: Classic
+  url: /
+  desc: Warm, minimal, serif
+
+- id: kinetic
+  name: Kinetic
+  url: /v2/
+  desc: Dark editorial, big type
+
+- id: terminal
+  name: Terminal
+  url: /terminal/
+  desc: Command line, ⌘K palette
